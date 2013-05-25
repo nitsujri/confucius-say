@@ -4,6 +4,7 @@ class Word < ActiveRecord::Base
 
 
   searchable do
+    text :chinese_trad
     text :english
   end
 end

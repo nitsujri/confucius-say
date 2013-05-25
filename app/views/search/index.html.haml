@@ -4,6 +4,8 @@
   %span#searched-word
     =@searched
 
+=render :partial => 'search/search_box'
+
 #search-results
   %table.table
     %thead
@@ -16,14 +18,22 @@
           Jyutping
         %th
           English Definition
+        %th
+          Hit Value
     %tbody
-      -@results.each do |r|
+      -@solr.each_hit_with_result do |hit, r|
         %tr
           %td
             =r.chinese_trad
           %td
             =r.chinese_simp
           %td
-            =r.jyutping
+            =build_jyutping(r.jyutping)
+            
           %td
             =r.english
+          %td
+            =hit.score
+
+.pagination
+  =paginate @solr.results

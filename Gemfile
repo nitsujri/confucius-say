@@ -8,6 +8,7 @@ gem 'mysql2'
 gem 'haml'
 gem 'bourbon'
 gem "twitter-bootstrap-rails", "~> 2.2.6"
+gem 'kaminari' #pagination
 
 gem 'sunspot_rails'
 gem 'sunspot_solr', :group => :development

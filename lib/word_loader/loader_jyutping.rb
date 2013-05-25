@@ -1,10 +1,11 @@
 class WordLoader
   class LoaderJyutping < WordLoaderBase
     TESTING_DEPTH = 0
-    START_LINE = 94815
+    START_LINE = 100996
 
     def run
       read_file.drop(START_LINE).each_with_index do |line, index|
+
         split   = line.split(/\//, 2)
         chinese = split[0].strip if split[0]
         english = split[1].gsub(/\/\r\n/, "") if split[1]
@@ -17,15 +18,18 @@ class WordLoader
         trad     = split_ch[0] || nil
         simp     = split_ch[1] || nil
 
-        
-        Word.where({
-          :chinese_trad => trad, 
-          :chinese_simp => simp, 
-          :jyutping => jyut, 
-          :english => english
-        }).first_or_create
+        begin
+          Word.where({
+            :chinese_trad => trad, 
+            :chinese_simp => simp, 
+            :jyutping => jyut, 
+            :english => english
+          }).first_or_create
 
-
+          ap ">>>> Finished: #{START_LINE + index}"
+        rescue => e
+          ap ">>>> Skipped: #{START_LINE + index}"
+        end
       end
       "HIHI"
     end

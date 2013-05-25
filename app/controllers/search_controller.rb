@@ -1,7 +1,11 @@
 class SearchController < ApplicationController
   def index
     @searched = params[:q]
-
-    @results = [Word.first, Word.find(2)]
+    @page_num = params[:page]
+    
+    @solr = Word.search do
+      keywords params[:q]
+      paginate :page => params[:page] || 1, :per_page => 50
+    end
   end
 end
