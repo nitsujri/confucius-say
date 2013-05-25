@@ -9,7 +9,7 @@ gem 'haml'
 gem 'bourbon'
 gem "twitter-bootstrap-rails", "~> 2.2.6"
 
-gem 'sunspot'
+gem 'sunspot_rails'
 
 gem 'awesome_print'
 
