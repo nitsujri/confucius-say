@@ -16,3 +16,6 @@
 /tmp
 
 .DS_Store
+
+#We'll make samples for each to configure
+config/database.yml
