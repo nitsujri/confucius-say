@@ -1,2 +1,2 @@
-module HomeControllerHelper
+module HomeHelper
 end

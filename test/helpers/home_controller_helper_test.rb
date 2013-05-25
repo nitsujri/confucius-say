@@ -1,4 +1,4 @@
 require 'test_helper'
 
-class HomeControllerHelperTest < ActionView::TestCase
+class HomeHelperTest < ActionView::TestCase
 end
