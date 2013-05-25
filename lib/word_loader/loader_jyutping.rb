@@ -1,7 +1,6 @@
 class WordLoader
   class LoaderJyutping < WordLoaderBase
-    TESTING = true
-    TESTING_DEPTH = 100
+    TESTING_DEPTH = 0
 
     def run
       read_file.each_with_index do |line, index|

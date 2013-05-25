@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20130525022915) do
     t.string   "jyutping"
     t.string   "yale"
     t.string   "pinyin"
-    t.string   "english"
+    t.text     "english"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

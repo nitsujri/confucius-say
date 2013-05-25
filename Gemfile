@@ -6,6 +6,8 @@ gem 'rails', '4.0.0.rc1'
 gem 'mysql2'
 
 gem 'haml'
+gem 'bourbon'
+gem "twitter-bootstrap-rails", "~> 2.2.6"
 
 gem 'awesome_print'
 

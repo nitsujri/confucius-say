@@ -6,7 +6,7 @@ class CreateWords < ActiveRecord::Migration
       t.string :jyutping
       t.string :yale
       t.string :pinyin
-      t.string :english
+      t.text :english
 
       t.timestamps
     end
