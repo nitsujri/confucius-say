@@ -1,1 +1,29 @@
-=@searched
+
+%h2#searched
+  You Searched:
+  %span#searched-word
+    =@searched
+
+#search-results
+  %table.table
+    %thead
+      %tr
+        %th
+          Traditional
+        %th
+          Simplified
+        %th
+          Jyutping
+        %th
+          English Definition
+    %tbody
+      -@results.each do |r|
+        %tr
+          %td
+            =r.chinese_trad
+          %td
+            =r.chinese_simp
+          %td
+            =r.jyutping
+          %td
+            =r.english

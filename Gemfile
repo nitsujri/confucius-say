@@ -9,6 +9,8 @@ gem 'haml'
 gem 'bourbon'
 gem "twitter-bootstrap-rails", "~> 2.2.6"
 
+gem 'sunspot'
+
 gem 'awesome_print'
 
 # Use SCSS for stylesheets
