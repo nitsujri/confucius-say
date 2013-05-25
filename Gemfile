@@ -10,6 +10,8 @@ gem 'bourbon'
 gem "twitter-bootstrap-rails", "~> 2.2.6"
 
 gem 'sunspot_rails'
+gem 'sunspot_solr', :group => :development
+gem 'progress_bar', :group => :development
 
 gem 'awesome_print'
 

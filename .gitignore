@@ -19,3 +19,8 @@
 
 #We'll make samples for each to configure
 config/database.yml
+
+#solr shiz
+log/*
+solr/
+sunspot-solr.pid

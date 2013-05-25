@@ -1,5 +1,7 @@
 Welcome to Confucius Say
 ==============================
+Despite what the name sounds like, this project is for English-Chinese translation tool with a specific focus around Cantonese (jyutping).
+
 
 Usage
 ------------------------------

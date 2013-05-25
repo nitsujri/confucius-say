@@ -1,9 +1,10 @@
 class WordLoader
   class LoaderJyutping < WordLoaderBase
     TESTING_DEPTH = 0
+    START_LINE = 94815
 
     def run
-      read_file.each_with_index do |line, index|
+      read_file.drop(START_LINE).each_with_index do |line, index|
         split   = line.split(/\//, 2)
         chinese = split[0].strip if split[0]
         english = split[1].gsub(/\/\r\n/, "") if split[1]
