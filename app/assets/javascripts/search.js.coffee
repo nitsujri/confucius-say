@@ -8,7 +8,7 @@ $ ->
     # options
     distance = 10
     time = 250
-    hideDelay = 500
+    hideDelay = 10
     hideDelayTimer = null
     
     # tracker
@@ -36,8 +36,8 @@ $ ->
       else
         beingShown = true
         popup.css(
-          top: -100
-          left: -33
+          top: 30
+          left: 0
           display: "block"
         ).animate
           top: "-=" + distance + "px"

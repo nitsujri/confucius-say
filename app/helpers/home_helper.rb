@@ -14,7 +14,7 @@ module HomeHelper
           end
 
           out += content_tag :div, :class => "image" do
-            tag :img, :src => "/images/cantonese_tones.png"
+            tag :img, :src => "/images/6-tones-in-cantonese.png"
           end
           out
         end

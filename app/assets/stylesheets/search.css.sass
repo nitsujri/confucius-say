@@ -1,6 +1,7 @@
 // Place all the styles related to the Search controller here.
 // They will automatically be included in application.css.
 // You can use Sass here: http://sass-lang.com/
+@import 'colors'
 
 .bubbleInfo
   position: relative
@@ -10,4 +11,12 @@
   display: none
   background: white
   z-index: 1000
+  border: 3px solid $grey
+  min-width: 600px
+  min-height: 200px
+  padding: 10px 25px
+  @include border-top-radius(5px)
+  @include border-bottom-radius(5px)
+  @include border-left-radius(5px)
+  @include border-right-radius(5px)
   /* keeps the popup hidden if no JS available
