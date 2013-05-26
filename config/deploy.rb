@@ -1,5 +1,11 @@
+require "bundler/capistrano"
+
 set :application, "confucius-say"
 set :repository,  "git@github.com:nitsujri/confucius-say.git"
+
+role :app, "ec2-54-214-168-144.us-west-2.compute.amazonaws.com"
+role :web, "ec2-54-214-168-144.us-west-2.compute.amazonaws.com"
+role :db, "ec2-54-214-168-144.us-west-2.compute.amazonaws.com"
 
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
@@ -11,9 +17,11 @@ set :keep_releases, 5
 
 set :deploy_to, "/data/#{application}"
 
-role :app, "ec2-54-214-168-144.us-west-2.compute.amazonaws.com"
-role :web, "ec2-54-214-168-144.us-west-2.compute.amazonaws.com"
-role :db, "ec2-54-214-168-144.us-west-2.compute.amazonaws.com"
+set :bundle_flags, "--deployment --quiet --binstubs"
+
+set :default_environment, {
+  'PATH' => "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
+}
 
 def remote_file_exists?(full_path)
   'true' ==  capture("if [ -e #{full_path} ]; then echo 'true'; fi").strip
