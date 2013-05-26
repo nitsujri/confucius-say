@@ -13,8 +13,8 @@ gem "twitter-bootstrap-rails", "~> 2.2.6"
 gem 'kaminari' #pagination
 
 gem 'sunspot_rails'
-gem 'sunspot_solr', :group => :development
-gem 'progress_bar', :group => :development
+gem 'sunspot_solr'
+gem 'progress_bar'
 
 gem 'awesome_print'
 
