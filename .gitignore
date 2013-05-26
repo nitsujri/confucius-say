@@ -22,5 +22,6 @@ config/database.yml
 
 #solr shiz
 log/*
-solr/
+solr/data/*
+solr/pids/*
 sunspot-solr.pid
