@@ -2,7 +2,7 @@
 @import "colors";
 @import "home";
 @import "search";
-@import "bootstrap_and_overrides.css";
+@import "bootstrap.min";
 
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
@@ -15,5 +15,4 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree
  */
