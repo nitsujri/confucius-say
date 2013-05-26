@@ -19,4 +19,53 @@
   @include border-bottom-radius(5px)
   @include border-left-radius(5px)
   @include border-right-radius(5px)
-  /* keeps the popup hidden if no JS available
+
+  .image
+    position: relative
+
+    .screen-l, .screen-r
+      position: absolute
+      top: 0
+      display: block
+      height: 100%
+      opacity: 0.87
+      background: white
+
+    .screen-r
+      right: 0
+
+  .tone-1
+    .screen-l
+      width: 11.1%
+    .screen-r
+      width: 74.1%
+
+  .tone-2
+    .screen-l
+      width: 25.6%
+    .screen-r
+      width: 59.6%
+
+  .tone-3
+    .screen-l
+      width: 40.3%
+    .screen-r
+      width: 43.5%
+
+  .tone-4
+    .screen-l
+      width: 56.3%
+    .screen-r
+      width: 28.8%
+
+  .tone-5
+    .screen-l
+      width: 71.1%
+    .screen-r
+      width: 13.9%
+
+  .tone-6
+    .screen-l
+      width: 86%
+    .screen-r
+      width: 0%

@@ -1,8 +1,11 @@
 module HomeHelper
   def build_jyutping(words)
     split = words.split(/\s/)
-    
+
     split.map do |word|
+
+      tone = "tone-" + word[-1]
+
       content_tag :span, :class => "bubbleInfo" do
         output = content_tag :a, :href => "#", :class => "trigger" do
           word
@@ -13,8 +16,12 @@ module HomeHelper
             word
           end
 
-          out += content_tag :div, :class => "image" do
-            tag :img, :src => "/images/6-tones-in-cantonese.png"
+          out += content_tag :div, :class => "image #{tone}" do
+            out1 = tag :img, :src => "/images/6-tones-in-cantonese.png"
+
+            out1 += content_tag :div, "", :class => "screen-l"
+            out1 += content_tag :div, "", :class => "screen-r"
+            out1
           end
           out
         end
