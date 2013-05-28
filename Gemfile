@@ -17,6 +17,11 @@ gem 'progress_bar'
 
 gem 'awesome_print'
 
+group :development do
+  gem 'httparty'
+  gem 'nokogiri'
+end
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0.rc1'
 
