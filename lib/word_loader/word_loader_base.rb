@@ -3,7 +3,7 @@ class WordLoader
     def read_file(filename = "JyutEnDict.u8")
       out = []
       index = 0
-      File.open(Rails.root.to_s + "/tmp/" + filename, 'r').each do |line|
+      File.open(Rails.root.to_s + "/tmp/" + filename, 'r:utf-8').each do |line|
         #skip comments or blank lines
         if line.match(/^#/) or line.match(/^\s*$/)
           next
@@ -16,6 +16,5 @@ class WordLoader
       end
       out
     end
-
   end
 end

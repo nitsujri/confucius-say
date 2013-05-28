@@ -39,6 +39,7 @@ class WordLoader
               ap ">>>> Old Word - New Definition: #{START_LINE + index} Word: #{word.id}"
             end
 
+            #Load pinyin' anyway!
             word.pinyin = piny
             word.save!
           else
