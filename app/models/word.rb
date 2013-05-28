@@ -6,7 +6,7 @@ class Word < ActiveRecord::Base
   searchable do
     string :chinese_trad
     text :english do
-      english.gsub(/\(.*\)/, "")
+      english.gsub(/\(.*\)/, "") if english.present?
     end
   end
 end

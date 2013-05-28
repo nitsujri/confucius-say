@@ -35,7 +35,7 @@ end
 before 'deploy:update_code', "deploy:add_host_keys"
 before 'deploy:assets:precompile', 'deploy:cp_database_yml'
 after 'deploy:update_code', 'deploy:setup_solr_data_dir'
-after 'deploy:setup_solr_data_dir', 'solr:start'
+# after 'deploy:setup_solr_data_dir', 'solr:start'
 after 'deploy:update_code', 'deploy:cleanup'
 
 namespace :deploy do
