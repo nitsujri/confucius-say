@@ -2,39 +2,50 @@ class OneOffs
   class IndividualizeWords
 
     def gather_single_chars
+
+      ap ">>>> Grabbing all words and singling out characters"
+
       check = []
       output = []
       collision_cnt = 0
       char_count = 0
-      Word.all.each do |word|
-        if word.chinese_trad.chars.count != word.chinese_simp.chars.count
-          raise ">>>> We have something weird! Trad: #{word.chinese_trad}, Simp: #{word.chinese_simp}"
-        end
+      batch_cnt = 0
+      Word.all.find_in_batches(:batch_size => 1000) do |batch|
+        
+        ap ">>>> Working on #{batch_cnt * 1000}-#{(batch_cnt + 1) * 1000}"
+        batch_cnt += 1
 
-        word.chinese_trad.chars.each_with_index do |c_trad, i|
-          c_simp = word.chinese_simp[i]
+        batch.each do |word|
 
-          unless check.include? [c_trad, c_simp]
-
-            #try to grab the jyutping or pinyin
-            jyut = (word.jyutping.split(/\s/)[i] if word.jyutping.present?) || nil 
-            piny = (word.pinyin.split(/\s/)[i] if word.pinyin.present?) || nil
-
-            check << [c_trad, c_simp]
-            output << {
-              :chinese_trad => c_trad,
-              :chinese_simp => c_simp,
-              :jyutping     => jyut,
-              :pinyin       => piny,
-            }
-            char_count += 1
-
-          else
-            collision_cnt += 1
+          if word.chinese_trad.chars.count != word.chinese_simp.chars.count
+            raise ">>>> We have something weird! Trad: #{word.chinese_trad}, Simp: #{word.chinese_simp}"
           end
 
-        end
-      end
+          word.chinese_trad.chars.each_with_index do |c_trad, i|
+            c_simp = word.chinese_simp[i]
+
+            unless check.include? [c_trad, c_simp]
+
+              #try to grab the jyutping or pinyin
+              jyut = (word.jyutping.split(/\s/)[i] if word.jyutping.present?) || nil 
+              piny = (word.pinyin.split(/\s/)[i] if word.pinyin.present?) || nil
+
+              check << [c_trad, c_simp]
+              output << {
+                :chinese_trad => c_trad,
+                :chinese_simp => c_simp,
+                :jyutping     => jyut,
+                :pinyin       => piny,
+              }
+              char_count += 1
+
+            else
+              collision_cnt += 1
+            end
+
+          end 
+        end #batch
+      end #find_in_batches
 
       ap ">>>> Individual Chars: #{char_count}; Collision Count: #{collision_cnt}"
 
@@ -49,17 +60,20 @@ class OneOffs
           ap ">>>> Have #{word.chinese_trad}: #{word.id}"
           old_cnt += 1
         else
-          #add & mark
-          word = Word.create!({
-            :chinese_trad => char[:chinese_trad],
-            :chinese_simp => char[:chinese_simp],
-            :jyutping     => char[:jyutping],
-            :pinyin       => char[:pinyin],
-            :single_char  => true
-          })
-          new_cnt += 1
-          ap word
-          ap ">>>> Created #{word.chinese_trad}: #{word.id}"
+          begin
+            #add & mark
+            word = Word.create!({
+              :chinese_trad => char[:chinese_trad],
+              :chinese_simp => char[:chinese_simp],
+              :jyutping     => char[:jyutping],
+              :pinyin       => char[:pinyin],
+              :single_char  => true
+            })
+            new_cnt += 1
+            ap ">>>> Created #{word.chinese_trad}: #{word.id}"
+          rescue => e
+            ap ">>>> EPIC FAIL: #{char[:chinese_trad]} #{char[:chinese_simp]}; #{e.message} "
+          end
         end
       end
 
