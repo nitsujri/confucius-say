@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130528160057) do
+ActiveRecord::Schema.define(version: 20130529101252) do
+
+  create_table "extra_data", force: true do |t|
+    t.text     "data"
+    t.integer  "storable_id"
+    t.string   "storable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "extra_data", ["storable_type", "storable_id"], name: "index_extra_data_on_storable_type_and_storable_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

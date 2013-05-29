@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  data: MyText
+  storable_id: 1
+  storable_type: MyString
+
+two:
+  data: MyText
+  storable_id: 1
+  storable_type: MyString

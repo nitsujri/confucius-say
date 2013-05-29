@@ -18,28 +18,54 @@ class OneOffs
           "searchsubmit"    => "search"
         }
 
-        parsed_html  = Nokogiri::HTML(HTTParty.post(url, :headers => {"User-Agent" => APPLICATION_NAME}, :body => payload))
-        redirect     = parsed_html.at_css('meta[http-equiv="refresh"]')
-        redirect_url = redirect.attributes["content"].value.gsub(/1;url=/, "")
+        response    = HTTParty.post(url, :headers => {"User-Agent" => APPLICATION_NAME}, :body => payload)
+        parsed_html = Nokogiri::HTML(response)
+        redirect    = parsed_html.at_css('meta[http-equiv="refresh"]')
+
+        if redirect.present?
+          redirect_url = redirect.attributes["content"].value.gsub(/1;url=/, "")
+        else
+          #There was no redirect, not dealing with that page
+          return response
+        end
         
+        #follow the redirect
         visit_site(word, redirect_url)
+
       else
         HTTParty.get(url)
       end
     end
 
+    def parse_response(response)
+      noko_html = Nokogiri::HTML(response.body)
+      {
+        :char           => noko_html.at_css('.word.script').text,
+        :jyutping       => noko_html.at_css('.cardjyutping').text,
+        :pinyin         => noko_html.at_css('.cardpinyin').text,
+        :english        => noko_html.at_xpath('//*[@class="wordmeaning"]/text()').text.strip,
+        :part_of_speech => noko_html.at_xpath('//*[@class="posicon"]/@title').text,
+      }
+    end
+
+    def store_extracted(word, from_site)
+      word.set_data("canto_dict", from_site)
+    end
+
     def run
       #gather words
       # words = gather_words
+      word = Word.find(5787)
 
-      word = Word.find(5787).chinese_trad
       #visit translator
-      response = visit_site(word)
+      response = visit_site(word.chinese_trad)
 
-      ap response
       #extract response
+      extracted_word = parse_response(response)
 
       #verify and store
+      store_extracted(word, extracted_word)
+
     end
 
     class << self
