@@ -4,4 +4,9 @@ namespace :one_offs do
     ap "[Individualizing Words: Let's go make babies!!]"
     OneOffs::IndividualizeWords.go
   end
+
+  task :verify_words => :environment do
+    ap "[Verifying Words: GO GET 'EM!"
+    OneOffs::VerifyWords.go
+  end
 end
