@@ -33,4 +33,43 @@ class Word < ActiveRecord::Base
     self.extra_data.data[key]
   end
 
+  # Current example of fully stuffed data
+
+  # {
+  #   :char           => noko_html.at_css('.word.script').try(:text),
+  #   :jyutping       => noko_html.at_css('.cardjyutping').try(:text),
+  #   :pinyin         => noko_html.at_css('.cardpinyin').try(:text),
+  #   :english        => noko_html.at_xpath('//*[@class="wordmeaning"]/text()').try(:text).try(:strip),
+  #   :part_of_speech => noko_html.at_xpath('//*[@class="posicon"]/@title').try(:text),
+  #   :stroke_count   => noko_html.at_css('.charstrokecount').try(:text),
+  #   :radical        => noko_html.at_css('.charradical').try(:text),
+  #   :level          => noko_html.at_css('.charlevel').try(:text),
+  #   :compounds      => {
+  #     :info => {
+  #       :full_compounds_list_url => fd_url
+  #     },
+  #     :the_compounds => {
+  #       :full_detail_url => fd_url,
+  #       :chars_trad => { 
+  #         :type => "linkedchar", 
+  #         :char_trad => c.text, 
+  #         :full_detail_url => c[:href] 
+  #       },
+  #       :jyutping   => jyutping,
+  #       :pinyin     => pinyin,
+  #       :english    => english,
+  #       :usage      => usage,
+  #     },
+  #   },
+  #   :examples       => {
+  #     :full_detail_url   => fd_url,
+  #     :sound_example_url => sound_url,
+  #     :chars_trad        => {
+  #       :chars_trad => a.text, 
+  #       :full_detail_url => a[:href]
+  #     },
+  #     :useage            => usage
+  #   },
+  # }
+
 end
