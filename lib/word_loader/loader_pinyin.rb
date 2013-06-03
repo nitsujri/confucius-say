@@ -22,7 +22,7 @@ class WordLoader
           #find the word
           #if found, add pinyin and english
 
-          if word = Word.find_by_chinese_trad_and_chinese_simp(trad, simp)
+          if word = Word.find_by_chars_trad_and_chars_simp(trad, simp)
             #We're checking if we've added this already
             if word.english.present?
               
@@ -44,8 +44,8 @@ class WordLoader
             word.save!
           else
             word = Word.create!({
-              :chinese_trad => trad,
-              :chinese_simp => simp,
+              :chars_trad => trad,
+              :chars_simp => simp,
               :pinyin => piny,
               :english => english
             })

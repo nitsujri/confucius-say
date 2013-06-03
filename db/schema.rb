@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 20130529101252) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "words", force: true do |t|
-    t.string   "chinese_trad"
-    t.string   "chinese_simp"
+    t.string   "chars_trad"
+    t.string   "chars_simp"
     t.string   "jyutping"
     t.string   "yale"
     t.string   "pinyin"

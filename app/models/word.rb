@@ -1,12 +1,12 @@
 class Word < ActiveRecord::Base
-  validates :chinese_trad, :presence => true, :uniqueness => true
-  validates :chinese_simp, :presence => true
+  validates :chars_trad, :presence => true, :uniqueness => true
+  validates :chars_simp, :presence => true
 
   has_one :extra_data, :as => :storable
 
 
   searchable do
-    string :chinese_trad
+    string :chars_trad
     text :english do
       english.gsub(/\(.*\)/, "") if english.present?
     end

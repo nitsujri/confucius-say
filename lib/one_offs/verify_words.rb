@@ -8,7 +8,7 @@ class OneOffs
     APPLICATION_NAME = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1468.0 Safari/537.36"
 
     def gather_words
-      Word.where("char_length(chinese_trad) = ?", 1)
+      Word.where("char_length(chars_trad) = ?", 1)
     end
 
     def visit_site(word, url = nil, limit = 5)
@@ -162,7 +162,7 @@ class OneOffs
         ap ">>>> #{index+1}. Going After: #{word.id}"
 
         #visit translator
-        response = visit_site(word.chinese_trad)
+        response = visit_site(word.chars_trad)
 
         next unless response
 

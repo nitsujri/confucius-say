@@ -20,8 +20,8 @@ class WordLoader
 
         begin
           Word.where({
-            :chinese_trad => trad, 
-            :chinese_simp => simp, 
+            :chars_trad => trad, 
+            :chars_simp => simp, 
             :jyutping => jyut, 
             :english => english
           }).first_or_create

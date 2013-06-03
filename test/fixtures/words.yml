@@ -1,16 +1,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  chinese_trad: MyString
-  chinese_simp: MyString
+  chars_trad: MyString
+  chars_simp: MyString
   jyutping: MyString
   yale: MyString
   pinyin: MyString
   english: MyString
 
 two:
-  chinese_trad: MyString
-  chinese_simp: MyString
+  chars_trad: MyString
+  chars_simp: MyString
   jyutping: MyString
   yale: MyString
   pinyin: MyString

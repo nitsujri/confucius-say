@@ -24,9 +24,9 @@
       -@solr.each_hit_with_result do |hit, r|
         %tr
           %td
-            =r.chinese_trad
+            =r.chars_trad
           %td
-            =r.chinese_simp
+            =r.chars_simp
           %td
             =build_jyutping(r.jyutping)
             

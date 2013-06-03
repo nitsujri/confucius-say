@@ -17,12 +17,12 @@ class OneOffs
 
         batch.each do |word|
 
-          if word.chinese_trad.chars.count != word.chinese_simp.chars.count
-            raise ">>>> We have something weird! Trad: #{word.chinese_trad}, Simp: #{word.chinese_simp}"
+          if word.chars_trad.chars.count != word.chars_simp.chars.count
+            raise ">>>> We have something weird! Trad: #{word.chars_trad}, Simp: #{word.chars_simp}"
           end
 
-          word.chinese_trad.chars.each_with_index do |c_trad, i|
-            c_simp = word.chinese_simp[i]
+          word.chars_trad.chars.each_with_index do |c_trad, i|
+            c_simp = word.chars_simp[i]
 
             unless check.include? [c_trad, c_simp]
 
@@ -32,8 +32,8 @@ class OneOffs
 
               check << [c_trad, c_simp]
               output << {
-                :chinese_trad => c_trad,
-                :chinese_simp => c_simp,
+                :chars_trad => c_trad,
+                :chars_simp => c_simp,
                 :jyutping     => jyut,
                 :pinyin       => piny,
               }
@@ -56,23 +56,23 @@ class OneOffs
       new_cnt = 0
       old_cnt = 0
       chars.each do |char|
-        if word = Word.find_by(chinese_trad: char[:chinese_trad], chinese_simp: char[:chinese_simp])
-          ap ">>>> Have #{word.chinese_trad}: #{word.id}"
+        if word = Word.find_by(chars_trad: char[:chars_trad], chars_simp: char[:chars_simp])
+          ap ">>>> Have #{word.chars_trad}: #{word.id}"
           old_cnt += 1
         else
           begin
             #add & mark
             word = Word.create!({
-              :chinese_trad => char[:chinese_trad],
-              :chinese_simp => char[:chinese_simp],
+              :chars_trad => char[:chars_trad],
+              :chars_simp => char[:chars_simp],
               :jyutping     => char[:jyutping],
               :pinyin       => char[:pinyin],
               :single_char  => true
             })
             new_cnt += 1
-            ap ">>>> Created #{word.chinese_trad}: #{word.id}"
+            ap ">>>> Created #{word.chars_trad}: #{word.id}"
           rescue => e
-            ap ">>>> EPIC FAIL: #{char[:chinese_trad]} #{char[:chinese_simp]}; #{e.message} "
+            ap ">>>> EPIC FAIL: #{char[:chars_trad]} #{char[:chars_simp]}; #{e.message} "
           end
         end
       end
