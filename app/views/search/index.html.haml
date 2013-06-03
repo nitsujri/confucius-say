@@ -22,11 +22,13 @@
         %th
           Hit Value
     %tbody
-      -unless @chinese_words || @solr
-        We did not find anything. What were you looking for?
+      -if @chinese_words.blank? and @solr.blank?
+        %tr
+          %td{:colspan => 6}
+            We did not find anything. What were you looking for?
 
       -i=0
-      -if @chinese_words
+      -if @chinese_words.present?
         -@chinese_words.each.with_index do |r, index|
           %tr
             %td
@@ -34,15 +36,16 @@
             %td.chinese_chars
               =r.chars_trad
             %td.chinese_chars
-              =r.chars_simp
+              -if r.simp_diff?
+                =r.chars_simp
             %td
               =build_jyutping(r)
               
             %td
-              -if r.english_2
+              -if r.english_2.present?
                 1.
               =r.english
-              -if r.english_2
+              -if r.english_2.present?
                 %br
                 2.
                 =r.english_2
@@ -50,7 +53,7 @@
               Exact
           -i=1
 
-      -if @solr
+      -if @solr.present?
         -@solr.each_hit_with_result do |hit, r|
           -i+=1
           %tr
@@ -59,12 +62,19 @@
             %td.chinese_chars
               =r.chars_trad
             %td.chinese_chars
-              =r.chars_simp
+              -if r.simp_diff?
+                =r.chars_simp
             %td
               =build_jyutping(r)
               
             %td
+              -if r.english_2.present?
+                1.
               =r.english
+              -if r.english_2.present?
+                %br
+                2.
+                =r.english_2
 
             %td
               =hit.score

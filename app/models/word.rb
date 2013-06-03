@@ -14,6 +14,15 @@ class Word < ActiveRecord::Base
     end
   end
 
+  def simp_diff?
+    self.chars_trad != self.chars_simp
+  end
+
+  def get_data(key)
+    key = key.to_sym
+    self.extra_data.data[key]
+  end
+
   def set_data(key, data)
     key = key.to_sym #make sure it's a symbol, to avoid dups
 
@@ -28,11 +37,6 @@ class Word < ActiveRecord::Base
     end
 
     self.extra_data.save!
-  end
-
-  def get_data(key)
-    key = key.to_sym
-    self.extra_data.data[key]
   end
 
   # Current example of fully stuffed data

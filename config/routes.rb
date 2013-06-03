@@ -8,7 +8,9 @@ ConfuciusSay::Application.routes.draw do
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
-  get 'serach' => 'search#index', :as => 'search'
+  get 'search' => 'search#index', :as => 'search'
+  get 'search/autocomplete' => 'search#autocomplete'
+
 
   get ':translated/:id' => 'words#show', :constraints => { :translated => /.*/ }
 
