@@ -11,6 +11,7 @@
     %thead
       %tr
         %th
+        %th
           Traditional
         %th
           Simplified
@@ -21,19 +22,52 @@
         %th
           Hit Value
     %tbody
-      -@solr.each_hit_with_result do |hit, r|
-        %tr
-          %td
-            =r.chars_trad
-          %td
-            =r.chars_simp
-          %td
-            =build_jyutping(r.jyutping)
-            
-          %td
-            =r.english
-          %td
-            =hit.score
+      -unless @chinese_words || @solr
+        We did not find anything. What were you looking for?
+
+      -i=0
+      -if @chinese_words
+        -@chinese_words.each.with_index do |r, index|
+          %tr
+            %td
+              =link_to (index + 1).to_s + ".", word_path(r)
+            %td.chinese_chars
+              =r.chars_trad
+            %td.chinese_chars
+              =r.chars_simp
+            %td
+              =build_jyutping(r)
+              
+            %td
+              -if r.english_2
+                1.
+              =r.english
+              -if r.english_2
+                %br
+                2.
+                =r.english_2
+            %td
+              Exact
+          -i=1
+
+      -if @solr
+        -@solr.each_hit_with_result do |hit, r|
+          -i+=1
+          %tr
+            %td
+              =link_to i.to_s + ".", word_path(r)
+            %td.chinese_chars
+              =r.chars_trad
+            %td.chinese_chars
+              =r.chars_simp
+            %td
+              =build_jyutping(r)
+              
+            %td
+              =r.english
+
+            %td
+              =hit.score
 
 .pagination
-  =paginate @solr.results
+  =#paginate @solr.results
