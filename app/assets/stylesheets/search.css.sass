@@ -3,75 +3,102 @@
 // You can use Sass here: http://sass-lang.com/
 @import 'colors'
 
-.chinese_chars
-  font-size: 20px
+#search-box-container
+  form
+    @include clearfix
+    margin: 0
 
-.large_chinese_chars
-  font-size: 60px
+  .search-field-container
+    float: left
+  #q
+    font-size: 20px
+    height: 30px
+    width: 400px
+    padding: 10px
+    margin: 0
+
+    &:focus
+      outline: 0
+      border-color: #FFF
+
+  .search-submit
+    float: left
+    padding: 14px
+    margin: 0 0 0 15px
+    font-size: 20px
+
+#search-results
+  margin: 20px 0 0
   
-.bubbleInfo
-  position: relative
+  .chinese_chars
+    font-size: 20px
 
-.popup
-  position: absolute
-  display: none
-  background: white
-  z-index: 1000
-  border: 3px solid $grey
-  min-width: 600px
-  min-height: 200px
-  padding: 10px 25px
-  @include border-top-radius(5px)
-  @include border-bottom-radius(5px)
-  @include border-left-radius(5px)
-  @include border-right-radius(5px)
-
-  .image
+  .large_chinese_chars
+    font-size: 60px
+    
+  .bubbleInfo
     position: relative
 
-    .screen-l, .screen-r
-      position: absolute
-      top: 0
-      display: block
-      height: 100%
-      opacity: 0.87
-      background: white
+  .popup
+    position: absolute
+    display: none
+    background: white
+    z-index: 1000
+    border: 3px solid $grey
+    min-width: 600px
+    min-height: 200px
+    padding: 10px 25px
+    @include border-top-radius(5px)
+    @include border-bottom-radius(5px)
+    @include border-left-radius(5px)
+    @include border-right-radius(5px)
 
-    .screen-r
-      right: 0
+    .image
+      position: relative
 
-  .tone-1
-    .screen-l
-      width: 11.1%
-    .screen-r
-      width: 74.1%
+      .screen-l, .screen-r
+        position: absolute
+        top: 0
+        display: block
+        height: 100%
+        opacity: 0.87
+        background: white
 
-  .tone-2
-    .screen-l
-      width: 25.6%
-    .screen-r
-      width: 59.6%
+      .screen-r
+        right: 0
 
-  .tone-3
-    .screen-l
-      width: 40.3%
-    .screen-r
-      width: 43.5%
+    .tone-1
+      .screen-l
+        width: 11.1%
+      .screen-r
+        width: 74.1%
 
-  .tone-4
-    .screen-l
-      width: 56.3%
-    .screen-r
-      width: 28.8%
+    .tone-2
+      .screen-l
+        width: 25.6%
+      .screen-r
+        width: 59.6%
 
-  .tone-5
-    .screen-l
-      width: 71.1%
-    .screen-r
-      width: 13.9%
+    .tone-3
+      .screen-l
+        width: 40.3%
+      .screen-r
+        width: 43.5%
 
-  .tone-6
-    .screen-l
-      width: 86%
-    .screen-r
-      width: 0%
+    .tone-4
+      .screen-l
+        width: 56.3%
+      .screen-r
+        width: 28.8%
+
+    .tone-5
+      .screen-l
+        width: 71.1%
+      .screen-r
+        width: 13.9%
+
+    .tone-6
+      .screen-l
+        width: 86%
+      .screen-r
+        width: 0%

@@ -3,6 +3,24 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
+  #Textbox work ===============================
+  # orig_text = $('.search_input').val()
+  orig_text = "Search/Translate Words"
+
+  $(".search_input").focus ->
+    if $(this).val() == orig_text
+      $(this).val("")
+
+  $(".search_input").blur ->
+    if $(this).val() == ""
+      $(this).val(orig_text)
+
+  #Example search links =======================
+  $(".example-search").click ->
+    $(".search_input").val($(this).html())
+    false
+
+  #Popup work
   $(".bubbleInfo").each ->
     
     # options
