@@ -5,11 +5,11 @@ class Word < ActiveRecord::Base
   has_one :extra_data, :as => :storable
 
   has_many :compound_word_links
-  has_many :compounds, :through => :compound_word_links, :class_name => "Word", :source => "compound"
+  has_many :compounds, :through => :compound_word_links, :source => :compound
 
   #If you want this speical one way stuff, you gotta make a reference to the other foreign key
   has_many :subword_word_links, :class_name => "CompoundWordLink", :foreign_key => "compound_id"
-  has_many :subwords, :through => :subword_word_links, :source => :compound
+  has_many :subwords, :through => :subword_word_links, :source => :word
 
   searchable do
     # not good enough to use solr on chinese
