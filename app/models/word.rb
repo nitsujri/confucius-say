@@ -4,6 +4,10 @@ class Word < ActiveRecord::Base
 
   has_one :extra_data, :as => :storable
 
+  has_many :compound_word_links
+  has_many :compounds, :through => :compound_word_links, :class_name => "Word", :foreign_key => "compound_id"
+
+  has_many :subwords, :through => :compound_word_links, :class_name => "Word", :foreign_key => "individual_word_id"
 
   searchable do
     # not good enough to use solr on chinese
