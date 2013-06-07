@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130529101252) do
+ActiveRecord::Schema.define(version: 20130607040859) do
+
+  create_table "compound_word_links", force: true do |t|
+    t.integer  "compound_id"
+    t.integer  "subword_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "extra_data", force: true do |t|
     t.text     "data"
