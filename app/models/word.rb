@@ -5,11 +5,11 @@ class Word < ActiveRecord::Base
   has_one :extra_data, :as => :storable
 
   has_many :compound_word_links
-
   has_many :compounds, :through => :compound_word_links, :class_name => "Word", :source => "compound"
 
-  #I've spent too much time on this one, need to switch to -> {} but even better make the relationship work fully
-  has_many :subwords, :class_name => "Word", finder_sql: proc {"SELECT `words`.* FROM `words` INNER JOIN `compound_word_links` ON `words`.`id` = `compound_word_links`.`word_id` WHERE `compound_word_links`.`compound_id` = #{id}"}
+  #If you want this speical one way stuff, you gotta make a reference to the other foreign key
+  has_many :subword_word_links, :class_name => "CompoundWordLink", :foreign_key => "compound_id"
+  has_many :subwords, :through => :subword_word_links, :source => :compound
 
   searchable do
     # not good enough to use solr on chinese
