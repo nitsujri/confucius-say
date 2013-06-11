@@ -11,14 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130607040859) do
+ActiveRecord::Schema.define(version: 20130611041459) do
 
   create_table "compound_word_links", force: true do |t|
     t.integer  "compound_id"
-    t.integer  "subword_id"
+    t.integer  "word_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "compound_word_links", ["compound_id", "word_id"], name: "compound_id", using: :btree
+  add_index "compound_word_links", ["word_id", "compound_id"], name: "word_id", using: :btree
 
   create_table "extra_data", force: true do |t|
     t.text     "data"
@@ -47,6 +50,19 @@ ActiveRecord::Schema.define(version: 20130607040859) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "word_data", force: true do |t|
+    t.integer  "word_id"
+    t.string   "usage"
+    t.string   "part_of_speech"
+    t.integer  "stroke_count"
+    t.string   "radical"
+    t.integer  "level"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "word_data", ["word_id"], name: "index_word_data_on_word_id", using: :btree
 
   create_table "words", force: true do |t|
     t.string   "chars_trad"

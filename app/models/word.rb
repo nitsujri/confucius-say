@@ -3,6 +3,7 @@ class Word < ActiveRecord::Base
   validates :chars_simp, :presence => true
 
   has_one :extra_data, :as => :storable
+  has_one :more_info, :class_name => "WordData"
 
   has_many :compound_word_links
   has_many :compounds, :through => :compound_word_links, :source => :compound

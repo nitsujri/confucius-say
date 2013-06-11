@@ -4,7 +4,7 @@ class OneOffs
   class VerifyWords
     include HTTParty
 
-    STARTING_AT = 0
+    STARTING_AT = 469 + 720 + 288
 
 
     APPLICATION_NAME = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1468.0 Safari/537.36"
@@ -72,7 +72,6 @@ class OneOffs
 
         #grab the chinese chars
         #redo inside chinesemed
-        ap compound.to_s
         chars_trad = []
         compound.at_css(".chinesemed").children.each do |word|
 
