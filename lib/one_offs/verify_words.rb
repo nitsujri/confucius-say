@@ -1,3 +1,5 @@
+#WHY DID YOU WRITE THIS SO STUPIDLY!?
+
 class OneOffs
   class VerifyWords
     include HTTParty
@@ -69,10 +71,17 @@ class OneOffs
         end
 
         #grab the chinese chars
-        chars_trad = [{:type => "mainchar", :char_trad => compound.at_css(".mainchar").text}]
-        compound.css(".linkchar").each{ |c| 
-          chars_trad << { :type => "linkedchar", :char_trad => c.text, :full_detail_url => c[:href] }
-        }
+        #redo inside chinesemed
+        ap compound.to_s
+        chars_trad = []
+        compound.at_css(".chinesemed").children.each do |word|
+
+          if word[:class] == "mainchar"
+            chars_trad << { :type => word[:class], :char_trad => word.text }
+          else
+            chars_trad << { :type => word[:class], :char_trad => word.text, :full_detail_url => word[:href] }
+          end
+        end
 
         #pronounciation baby!!
         jyutping = compound.at_css(".summary_jyutping").try(:text)
@@ -171,7 +180,7 @@ class OneOffs
 
         #verify and store
         store_extracted(word, extracted_data)
-
+        
       end
 
       ''
