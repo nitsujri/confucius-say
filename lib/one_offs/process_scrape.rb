@@ -6,10 +6,11 @@ class OneOffs
       data = gather_data
 
       data.drop(START_LINE).each_with_index do |d, i|
-        d = d.data[:canto_dict]
+        scrape_data = d.data[:canto_dict]
 
-        extract_compounds(d)
-        extract_examples(d)
+        extract_char_data(d)
+        # extract_compounds(scrape_data)
+        # extract_examples(scrape_data)
 
         break
       end
@@ -17,6 +18,16 @@ class OneOffs
 
     def gather_data
       ExtraData.all
+    end
+
+    def extract_char_data(full_data)
+      orig_word   = full_data.storable
+      scrape_data = full_data.data[:canto_dict]
+
+      orig_word.build_more_info(
+        usage: 
+      )
+      
     end
 
     def extract_compounds(data)
@@ -52,7 +63,7 @@ class OneOffs
           :usage   => compound_data[:usage]
         ).first_or_create
         
-
+        #should link words based upon the the_compounds
         link_compound_subwords(word)
 
       end

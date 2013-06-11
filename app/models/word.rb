@@ -61,28 +61,28 @@ class Word < ActiveRecord::Base
   #     :info => {
   #       :full_compounds_list_url => fd_url
   #     },
-  #     :the_compounds => {
+  #     :the_compounds => [{
   #       :full_detail_url => fd_url,
-  #       :chars_trad      => { 
+  #       :chars_trad      => [{ 
   #         :type            => "linkedchar", 
   #         :char_trad       => c.text, 
   #         :full_detail_url => c[:href] 
-  #       },
+  #       }],
   #       :jyutping   => jyutping,
   #       :pinyin     => pinyin,
   #       :english    => english,
   #       :usage      => usage,
-  #     },
+  #     }],
   #   },
-  #   :examples       => {
+  #   :examples       => [{
   #     :full_detail_url   => fd_url,
   #     :sound_example_url => sound_url,
-  #     :chars_trad        => {
+  #     :chars_trad        => [{
   #       :chars_trad      => a.text, 
   #       :full_detail_url => a[:href]
-  #     },
+  #     }],
   #     :useage            => usage
-  #   },
+  #   }],
   # }
 
 end
