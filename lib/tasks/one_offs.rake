@@ -9,4 +9,9 @@ namespace :one_offs do
     ap "[Verifying Words: GO GET 'EM!"
     OneOffs::VerifyWords.go
   end
+
+  task :link_words => :environment do
+    ap "[Linking Words: MATCH 'EM!]"
+    OneOffs::LinkWords.go
+  end
 end

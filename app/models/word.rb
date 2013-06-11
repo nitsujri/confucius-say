@@ -62,9 +62,9 @@ class Word < ActiveRecord::Base
   #     },
   #     :the_compounds => {
   #       :full_detail_url => fd_url,
-  #       :chars_trad => { 
-  #         :type => "linkedchar", 
-  #         :char_trad => c.text, 
+  #       :chars_trad      => { 
+  #         :type            => "linkedchar", 
+  #         :char_trad       => c.text, 
   #         :full_detail_url => c[:href] 
   #       },
   #       :jyutping   => jyutping,
@@ -77,7 +77,7 @@ class Word < ActiveRecord::Base
   #     :full_detail_url   => fd_url,
   #     :sound_example_url => sound_url,
   #     :chars_trad        => {
-  #       :chars_trad => a.text, 
+  #       :chars_trad      => a.text, 
   #       :full_detail_url => a[:href]
   #     },
   #     :useage            => usage

@@ -6,5 +6,8 @@ class CreateCompoundWordLinks < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :compound_word_links, :compound_id
+    add_index :compound_word_links, :word_id
   end
 end
