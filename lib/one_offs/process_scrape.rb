@@ -28,6 +28,8 @@ class OneOffs
       ExtraData.all
     end
 
+    ############### Extraction Handling ###############
+
     def extract_char_data(full_data)
       orig_word   = full_data.storable
       scrape_data = full_data.data[:canto_dict]
@@ -40,7 +42,6 @@ class OneOffs
           level: scrape_data[:level],
         ).save
       end
-
     end
 
     def extract_compounds(data)
@@ -52,12 +53,18 @@ class OneOffs
 
         word = insert_compound(compound_data)
         
-        #should link words based upon the the_compounds
+        #Link the subwords based on their compounds
         link_compound_subwords(word, compound_data)
 
       end
 
     end
+
+    def extract_examples(data)
+      
+    end
+
+    ################ Main Insert Functions ###############
 
     def insert_compound(compound_data)
       chars_trad = []
@@ -90,10 +97,6 @@ class OneOffs
       ).first_or_create
 
       word
-    end
-
-    def extract_examples(data)
-      
     end
 
     def link_compound_subwords(word, compound_data)

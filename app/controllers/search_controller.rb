@@ -3,21 +3,19 @@ class SearchController < ApplicationController
     @searched = params[:q]
     @page_num = params[:page]
     
+    #we have english only, so let's use bing translate
     if @searched.ascii_only?
-      #we have english
-      @solr = Word.search do
-        keywords params[:q]
-        paginate :page => params[:page] || 1, :per_page => 50
-      end
+      chars = Translator.to_cht @searched 
     else
-      #we have chinese
-      @chinese_words = Word.where('chars_trad = ? OR chars_simp = ?', params[:q], params[:q])
-      unless @chinese_words.blank?
-        @chinese_words += Word.where('(chars_trad LIKE ? OR chars_simp LIKE ?) AND id <> ?', "%#{params[:q]}%", "%#{params[:q]}%", @chinese_words.first.id)
-      else
-        #there was no exact mach, go to translation system
-      end
-        
+      chars = @searched
+    end
+
+    #look for exact match
+    @chinese_words = Word.where('chars_trad = ? OR chars_simp = ?', chars, chars)
+
+    unless @chinese_words.blank?
+      #add in LIKE entries, but have the exact match entries removed
+      @chinese_words += Word.where('(chars_trad LIKE ? OR chars_simp LIKE ?) AND id <> ?', "%#{chars}%", "%#{chars}%", @chinese_words.first.id)
     end
 
   end

@@ -11,6 +11,9 @@ gem 'haml'
 gem 'bourbon'
 gem 'kaminari' #pagination
 
+# gem "bing_translator", github: "nitsujri/bing_translator-gem", tag: "3.3.0"
+gem "bing_translator", "~> 4.0.0"
+
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'progress_bar'
