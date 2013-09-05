@@ -1,13 +1,17 @@
 class OneOffs
   class Base
+
     def start_info(action_name)
       @start_data ||= ExtraData.where({
         :storable_type => "StartAtData"
       }).first_or_create
 
       #make sure data exists
-      if @start_data.data.blank? || @start_data.data[action_name.to_sym].blank?
+      if @start_data.data.blank?
         @start_data.data = {action_name.to_sym => 0}
+        @start_data.save
+      elsif @start_data.data[action_name.to_sym].blank?
+        @start_data.data = @start_data.data.merge({action_name.to_sym => 0})
         @start_data.save
       end
 
@@ -22,7 +26,7 @@ class OneOffs
     end
 
     def start_position_for(action_name)
-      start_info("get_example_english").data[action_name.to_sym] || 0
+      start_info(action_name).data[action_name.to_sym] || 0
     end
   end
 end

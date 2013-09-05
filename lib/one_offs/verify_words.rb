@@ -1,10 +1,10 @@
 #WHY DID YOU WRITE THIS SO STUPIDLY!?
 
 class OneOffs
-  class VerifyWords
+  class VerifyWords < Base
     include HTTParty
 
-    STARTING_AT = 469 + 720 + 288 + 2145 + 2050
+    STARTING_AT = 469 + 720 + 288 + 2145 + 2050 + 355
 
     def gather_words
       Word.where("char_length(chars_trad) = ?", 1)
@@ -164,19 +164,25 @@ class OneOffs
       #gather words
       words = gather_words
 
-      words.drop(STARTING_AT).each_with_index do |word, index|
+      words.drop(start_position_for(self.class.to_s)).each_with_index do |word, index|
         ap ">>>> #{index+1}. Going After: #{word.id}"
 
         #visit translator
         response = visit_site(word.chars_trad)
 
-        next unless response
+        unless response
+          increment_start_pos(self.class.to_s)
+          next 
+        end
 
         #extract response
         extracted_data = parse_response(response)
 
         #verify and store
         store_extracted(word, extracted_data)
+
+        #from base
+        increment_start_pos(self.class.to_s)
         
       end
 

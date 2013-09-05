@@ -5,9 +5,8 @@ class OneOffs
     def fetch_english_meaning
       #try to get the start position
       #from base
-      start_at = start_position_for("get_example_english")
 
-      ExtraData.all.drop(start_at).each do |ed|
+      ExtraData.all.drop(start_position_for(self.class.to_s)).each do |ed|
         #find ones with examples
         data = ed.data
 
@@ -39,10 +38,7 @@ class OneOffs
         ed.update_attribute(:data, data)
 
         #from base
-        increment_start_pos("get_example_english")
-
-        break
-        
+        increment_start_pos(self.class.to_s)
         
       end #end extra data
     end
