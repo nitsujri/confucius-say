@@ -1,3 +1,33 @@
 =params[:id]
 
 =@word.inspect
+
+%h6
+  Traditional
+%p
+  =@word.chars_trad
+
+%h6
+  Simplified
+%p
+  =@word.chars_simp
+
+%h6
+  English
+%p
+  %ol
+    %li
+      =@word.english
+    -if @word.english_2.present?
+      %li
+        =@word.english_2
+
+%table
+  -@word.compounds.each do |compound|
+    %tr
+      %td
+        =compound.chars_trad
+      %td
+        =compound.english
+      %td
+        

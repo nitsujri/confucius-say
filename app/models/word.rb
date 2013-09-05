@@ -12,15 +12,6 @@ class Word < ActiveRecord::Base
   has_many :subword_word_links, :class_name => "CompoundWordLink", :foreign_key => "compound_id"
   has_many :subwords, :through => :subword_word_links, :source => :word
 
-  searchable do
-    # not good enough to use solr on chinese
-    # string :chars_trad
-    # string :chars_simp
-    text :english do
-      english.gsub(/\(.*\)/, "") if english.present?
-    end
-  end
-
   def simp_diff?
     self.chars_trad != self.chars_simp
   end

@@ -4,10 +4,7 @@ class OneOffs
   class VerifyWords
     include HTTParty
 
-    STARTING_AT = 469 + 720 + 288 + 2145
-
-
-    APPLICATION_NAME = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1468.0 Safari/537.36"
+    STARTING_AT = 469 + 720 + 288 + 2145 + 2050
 
     def gather_words
       Word.where("char_length(chars_trad) = ?", 1)
@@ -23,7 +20,7 @@ class OneOffs
           "searchsubmit"    => "search"
         }
 
-        response    = HTTParty.post(url, :headers => {"User-Agent" => APPLICATION_NAME}, :body => payload)
+        response    = HTTParty.post(url, :headers => {"User-Agent" => OneOffs::APPLICATION_NAME}, :body => payload)
         parsed_html = Nokogiri::HTML(response)
         redirect    = parsed_html.at_css('meta[http-equiv="refresh"]')
 
@@ -136,6 +133,7 @@ class OneOffs
         examples << {
           :full_detail_url   => fd_url,
           :sound_example_url => sound_url,
+          # :english           => english_meaning, #forgot ot add this
           :chars_trad        => chars_trad,
           :useage            => usage
         }

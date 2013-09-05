@@ -5,7 +5,11 @@ class SearchController < ApplicationController
     
     #we have english only, so let's use bing translate
     if @searched.ascii_only?
-      chars = Translator.to_cht @searched 
+      begin
+        chars = Translator.to_cht @searched
+      rescue BingTranslator::Exception => e
+        @error_msg = e.message
+      end
     else
       chars = @searched
     end

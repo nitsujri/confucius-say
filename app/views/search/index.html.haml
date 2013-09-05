@@ -4,6 +4,7 @@
   %span#searched-word
     =@searched
 
+=@error_msg
 =render :partial => 'search/search_box'
 
 #search-results
@@ -20,13 +21,8 @@
         %th
           English Definition
         %th
-          Hit Value
+          Example
     %tbody
-      -if @chinese_words.blank? and @solr.blank?
-        %tr
-          %td{:colspan => 6}
-            We did not find anything. What were you looking for?
-
       -i=0
       -if @chinese_words.present?
         -@chinese_words.each.with_index do |r, index|
@@ -50,34 +46,12 @@
                 2.
                 =r.english_2
             %td
-              Exact
+              %a{:href => "http://dl.aloonak68.com/Download/Music/Mehran/1392/01/1-15/01/Robin%20Thicke%20Feat.%20T.I.%20and%20Pharrell%20-%20Blurred%20Lines%20(Itunes)%20[128].mp3", :title => "Play Me!", :class => "sm2_button"}
+                Play
           -i=1
-
-      -if @solr.present?
-        -@solr.each_hit_with_result do |hit, r|
-          -i+=1
-          %tr
-            %td
-              =link_to i.to_s + ".", word_path(r)
-            %td.chinese_chars
-              =r.chars_trad
-            %td.chinese_chars
-              -if r.simp_diff?
-                =r.chars_simp
-            %td
-              =build_jyutping(r)
-              
-            %td
-              -if r.english_2.present?
-                1.
-              =r.english
-              -if r.english_2.present?
-                %br
-                2.
-                =r.english_2
-
-            %td
-              =hit.score
-
+      -else
+        %tr
+          %td{:colspan => 6}
+            We did not find anything. What were you looking for?
 .pagination
   =#paginate @solr.results

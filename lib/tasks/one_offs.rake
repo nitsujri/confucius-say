@@ -6,7 +6,8 @@ namespace :one_offs do
   end
 
   task :verify_words => :environment do
-    ap "[Verifying Words: GO GET 'EM!"
+    ap "[Verifying Words: GO GET 'EM!]"
+    ap "-- Helps get the sound URLs --"
     OneOffs::VerifyWords.go
   end
 

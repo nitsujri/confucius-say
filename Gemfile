@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0.rc1'
+gem 'rails', '4.0.0'
 
 gem 'mysql2'
 
@@ -10,12 +10,11 @@ gem 'devise', github: 'plataformatec/devise', branch: 'rails4'
 gem 'haml'
 gem 'bourbon'
 gem 'kaminari' #pagination
+gem 'soundmanager-rails' #play sound files
 
 # gem "bing_translator", github: "nitsujri/bing_translator-gem", tag: "3.3.0"
 gem "bing_translator", "~> 4.0.0"
 
-gem 'sunspot_rails'
-gem 'sunspot_solr'
 gem 'progress_bar'
 
 gem 'awesome_print'
