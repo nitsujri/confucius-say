@@ -1,6 +1,19 @@
 class OneOffs
   class Base
 
+    def increment_start_pos(action_name)
+      #increment the start position
+      start_data = start_info(action_name).data
+      start_data[action_name.to_sym] += 1
+      start_info(action_name).update_attribute(:data, start_data)
+    end
+
+    def start_position_for(action_name)
+      start_info(action_name).data[action_name.to_sym] || 0
+    end
+
+    private
+
     def start_info(action_name)
       @start_data ||= ExtraData.where({
         :storable_type => "StartAtData"
@@ -18,15 +31,5 @@ class OneOffs
       @start_data
     end
 
-    def increment_start_pos(action_name)
-      #increment the start position
-      start_data = start_info(action_name).data
-      start_data[action_name.to_sym] += 1
-      start_info(action_name).update_attribute(:data, start_data)
-    end
-
-    def start_position_for(action_name)
-      start_info(action_name).data[action_name.to_sym] || 0
-    end
   end
 end

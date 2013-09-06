@@ -6,9 +6,11 @@ class OneOffs
       #try to get the start position
       #from base
 
-      ExtraData.all.drop(start_position_for(self.class.to_s)).each do |ed|
+      ExtraData.all.drop(start_position_for(self.class.to_s)).each_with_index do |ed, index|
         #find ones with examples
         data = ed.data
+
+        ap ">>>> #{index}. Processing #{ed.id}"
 
         #visit full detail url
         data[:canto_dict][:examples].each_with_index do |example, i|
@@ -16,11 +18,11 @@ class OneOffs
           #visit url
 
           if data[:canto_dict][:examples][i][:english].present?
-            ap "Been Here! #{url}"
+            ap ">>>> Been Here! #{url}"
             next
           end
 
-          ap "Visiting URL: #{url}"
+          ap ">>>> Visiting URL: #{url}"
 
           response  = HTTParty.post(url, :headers => {"User-Agent" => OneOffs::APPLICATION_NAME})
           noko_html = Nokogiri::HTML(response)

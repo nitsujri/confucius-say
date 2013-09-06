@@ -11,6 +11,12 @@ namespace :one_offs do
     OneOffs::VerifyWords.go
   end
 
+  task :example_english => :environment do
+    ap "[Getting Example's Engrish Translations: PIKKACHU!]"
+    ap "-- Helps get the translations --"
+    OneOffs::GetExampleEnglish.go
+  end
+
   task :link_words => :environment do
     ap "[Linking Words: MATCH 'EM!]"
     OneOffs::LinkWords.go
