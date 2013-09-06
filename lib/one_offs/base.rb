@@ -1,6 +1,8 @@
 class OneOffs
   class Base
 
+    ##### HUGE NOTE: You could have race conditions with this if you have mutliple running at the same time
+
     def increment_start_pos(action_name)
       #increment the start position
       start_data = start_info(action_name).data

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130611041459) do
+ActiveRecord::Schema.define(version: 20130906030941) do
 
   create_table "compound_word_links", force: true do |t|
     t.integer  "compound_id"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20130611041459) do
     t.integer  "level"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "sound_url"
   end
 
   add_index "word_data", ["word_id"], name: "index_word_data_on_word_id", using: :btree
