@@ -18,12 +18,18 @@
       %li
         =@word.english_2
 
+:javascript
+  soundManager.setup({
+    // required: path to directory containing SM2 SWF files
+  });
+  
 %table
   -@word.compounds.each do |compound|
     %tr
       %td
+        -if compound.more_info.try(:sound_url).present?
+          %a.sm2_button{:href => "http://bigspace.celerity.co.uk/cantonese/" + compound.more_info.try(:sound_url)} Play
+      %td
         =compound.chars_trad
       %td
         =compound.english
-      %td
-        =compound.more_info.try(:sound_url)
