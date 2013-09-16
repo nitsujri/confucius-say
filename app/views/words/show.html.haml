@@ -1,7 +1,3 @@
-=params[:id]
-
-=@word.inspect
-
 %h6
   Traditional
 %p
@@ -30,4 +26,4 @@
       %td
         =compound.english
       %td
-        
+        =compound.more_info.try(:sound_url)

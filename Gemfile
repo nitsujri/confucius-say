@@ -10,7 +10,6 @@ gem 'devise', github: 'plataformatec/devise', branch: 'rails4'
 gem 'haml'
 gem 'bourbon'
 gem 'kaminari' #pagination
-gem 'soundmanager-rails' #play sound files
 
 # gem "bing_translator", github: "nitsujri/bing_translator-gem", tag: "3.3.0"
 gem "bing_translator", "~> 4.0.0"

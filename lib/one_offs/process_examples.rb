@@ -12,34 +12,64 @@ class OneOffs
           #create the word
           combined_chars = example[:chars_trad].map{|v| v[:chars_trad]}
 
+          word = Word.where(chars_trad: combined_chars.join).first_or_create
+
+          CompoundWordLink.where(word_id: ed.storable_id, compound_id: word.id).first_or_create
+
           #check to see if we're missing any char sets from being added
-          combined_simp     = ""
-          combined_jyutping = ""
-          combined_pinyin   = ""
+          # There HAS to be a better way to do this
+          combined_simp           = ""
+          combined_simp_check     = true
+          combined_jyutping       = ""
+          combined_jyutping_check = true
+          combined_pinyin         = ""
+          combined_pinyin_check   = true
           combined_chars.each do |chars|
             #add them in, we'll deal with them later
             small_word = Word.where({:chars_trad => chars}).first_or_create
 
+            #link the words
+            CompoundWordLink.where(word_id: small_word.id, compound_id: word.id).first_or_create 
+
+            #find a way to make that one thing disappear if we don't have it
+
             #find chars simplified
-            combined_simp += small_word.chars_simp
-            combined_jyutping += small_word.jyutping + " "
-            combined_pinyin   += small_word.pinyin + " "
+            if small_word.chars_simp.present?
+              combined_simp += small_word.chars_simp
+            else
+              combined_simp_check = false
+            end
+
+            if small_word.jyutping.present?
+              combined_jyutping += small_word.jyutping + " "
+            else
+              combined_jyutping_check = false
+            end
+
+            if small_word.pinyin.present?
+              combined_pinyin   += small_word.pinyin + " "
+            else
+              combined_pinyin_check = false
+            end
 
           end
-          
-          word = Word.where({:chars_trad => combined_chars.join}).first_or_create
 
           #load parts
+          word.chars_simp = combined_simp unless combined_simp.empty? or !combined_simp_check
           word.english    = example[:english]
-          word.chars_simp = combined_simp unless combined_simp.empty?
-          word.jyutping   = combined_jyutping.strip unless combined_jyutping.empty?  
-          word.pinyin     = combined_pinyin.strip unless combined_pinyin.empty?
+          word.jyutping   = combined_jyutping.strip unless combined_jyutping.empty? or !combined_jyutping_check
+          word.pinyin     = combined_pinyin.strip unless combined_pinyin.empty? or !combined_pinyin_check
 
           word.save
 
-          break
-          #link the word parts
           #create the extra data
+          if word.more_info.present?
+            word.more_info.update_column(:sound_url, example[:sound_example_url])
+          else
+            word.create_more_info(sound_url: example[:sound_example_url])
+          end
+
+          ap ">>>> Created Word: #{word.id}. #{word.chars_trad}"
 
         end
 
