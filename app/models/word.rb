@@ -12,6 +12,8 @@ class Word < ActiveRecord::Base
   has_many :subword_word_links, :class_name => "CompoundWordLink", :foreign_key => "compound_id"
   has_many :subwords, :through => :subword_word_links, :source => :word
 
+  scope :sound_ordered_info, -> { includes(:more_info).order("word_data.sound_url").reverse_order }
+
   def simp_diff?
     self.chars_trad != self.chars_simp
   end

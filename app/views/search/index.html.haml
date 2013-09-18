@@ -25,10 +25,11 @@
     %tbody
       -i=0
       -if @chinese_words.present?
-        -@chinese_words.each.with_index do |r, index|
+        -@chinese_words.to_enum.with_index(1) do |r, index|
+          -break if index > 100
           %tr
             %td
-              =link_to (index + 1).to_s + ".", word_path(r)
+              =link_to index.to_s + ".", word_path(r)
             %td.chinese_chars
               =r.chars_trad
             %td.chinese_chars

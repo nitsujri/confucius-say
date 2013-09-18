@@ -1,3 +1,5 @@
+=render :partial => 'search/search_box'
+
 %h6
   Traditional
 %p
@@ -18,13 +20,20 @@
       %li
         =@word.english_2
 
+%h6
+  Stroke Order
+
+- response = HTTParty.get("http://upload.wikimedia.org/wikipedia/commons/5/51/#{CGI::escape(@word.chars_trad)}-bw.png")
+-if response.code == 200
+  =image_tag "http://upload.wikimedia.org/wikipedia/commons/5/51/#{CGI::escape @word.chars_trad}-bw.png"
+
 :javascript
   soundManager.setup({
     // required: path to directory containing SM2 SWF files
   });
   
 %table
-  -@word.compounds.each do |compound|
+  -@word.compounds.sound_ordered_info.each do |compound|
     %tr
       %td
         -if compound.more_info.try(:sound_url).present?

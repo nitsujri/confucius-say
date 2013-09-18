@@ -17,6 +17,11 @@ namespace :one_offs do
     OneOffs::GetExampleEnglish.go
   end
 
+  task :process_examples => :environment do
+    ap "[Loading Sound Files: KAMEAHMEHA!!!]"
+    OneOffs::ProcessExamples.go
+  end
+
   task :link_words => :environment do
     ap "[Linking Words: MATCH 'EM!]"
     OneOffs::LinkWords.go

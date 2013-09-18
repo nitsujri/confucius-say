@@ -7,12 +7,18 @@ class OneOffs
 
     def load_examples
 
-      ExtraData.where({:storable_type => "Word"}).drop(start_position_for("load_examples")).each_with_index do |ed, index|
+      ExtraData.where({:storable_type => "Word"}).drop(start_position_for(self.class.to_s)).each_with_index do |ed, index|
+        ap ">>>> #{index}. Working: #{ed.id}"
         ed.data[:canto_dict][:examples].each do |example|
           #create the word
           combined_chars = example[:chars_trad].map{|v| v[:chars_trad]}
 
-          word = Word.where(chars_trad: combined_chars.join).first_or_create
+          begin
+            word = Word.where(chars_trad: combined_chars.join).first_or_create
+          rescue => e
+            ap "!!!!! ERROR: #{e.message}, skipping"
+            next
+          end
 
           CompoundWordLink.where(word_id: ed.storable_id, compound_id: word.id).first_or_create
 
@@ -73,8 +79,8 @@ class OneOffs
 
         end
 
-        increment_start_pos("load_examples")
-        break
+        increment_start_pos(self.class.to_s)
+
       end
     end
 

@@ -6,7 +6,11 @@ class ApplicationController < ActionController::Base
   helper_method :word_path
 
   def word_path(word)
-    "/" + urlify_ch(word.chars_trad) + "-" + urlify_en(word.english) + "/" + word.id.to_s
+    unless word.english.present?
+      "/" + urlify_ch(word.chars_trad) + "/" + word.id.to_s
+    else
+      "/" + urlify_ch(word.chars_trad) + "-" + urlify_en(word.english) + "/" + word.id.to_s
+    end
   end
 
   private
@@ -16,6 +20,6 @@ class ApplicationController < ActionController::Base
   end
 
   def urlify_en(text)
-    text.gsub(/\(.*\)/, "").gsub(/[^a-zA-Z0-9\s]+/, "").strip.gsub(/\s/, "-").downcase
+    text.gsub(/\(.*\)/, "").gsub(/[^a-zA-Z0-9\s\/]+/, "").strip.gsub(/[\s\/]/, "-").downcase
   end
 end
