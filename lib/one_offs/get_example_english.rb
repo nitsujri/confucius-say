@@ -12,6 +12,8 @@ class OneOffs
 
         ap ">>>> #{index}. Processing #{ed.id}"
 
+        next unless data[:canto_dict].present?
+
         #visit full detail url
         data[:canto_dict][:examples].each_with_index do |example, i|
           url = example[:full_detail_url]

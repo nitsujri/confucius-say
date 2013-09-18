@@ -17,7 +17,8 @@ class OneOffs
     private
 
     def start_info(action_name)
-      @start_data ||= ExtraData.where({
+      #must call it every time to help avoid race conditions even though they exist
+      @start_data = ExtraData.where({
         :storable_type => "StartAtData"
       }).first_or_create
 

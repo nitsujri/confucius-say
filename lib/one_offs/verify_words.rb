@@ -20,7 +20,15 @@ class OneOffs
           "searchsubmit"    => "search"
         }
 
-        response    = HTTParty.post(url, :headers => {"User-Agent" => OneOffs::APPLICATION_NAME}, :body => payload)
+        attempts = 0
+        begin
+          response    = HTTParty.post(url, :headers => {"User-Agent" => OneOffs::APPLICATION_NAME}, :body => payload)
+        rescue => e
+          ap ">>>> #{e.message}"
+          attempts += 1
+          retry if attempts <= 5
+        end
+
         parsed_html = Nokogiri::HTML(response)
         redirect    = parsed_html.at_css('meta[http-equiv="refresh"]')
 
