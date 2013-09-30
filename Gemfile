@@ -7,6 +7,11 @@ gem 'mysql2'
 
 gem 'devise', github: 'plataformatec/devise', branch: 'rails4'
 
+#For stroke images
+gem 'paperclip'
+gem 'aws-sdk', '~> 1.5.7'
+
+#html junk
 gem 'haml'
 gem 'bourbon'
 gem 'kaminari' #pagination

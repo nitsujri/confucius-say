@@ -1,0 +1,9 @@
+#0222-1802-8721
+
+development: 
+  access_key_id: AKIAIUWEB24BVQ322CNA
+  secret_access_key: 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
+
+production: 
+  access_key_id: AKIAIUWEB24BVQ322CNA
+  secret_access_key: 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

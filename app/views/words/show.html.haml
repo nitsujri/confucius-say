@@ -28,11 +28,6 @@
 %h6
   Stroke Order
 
-- response = HTTParty.get("http://upload.wikimedia.org/wikipedia/commons/5/51/#{CGI::escape(@word.chars_trad)}-bw.png")
--if response.code == 200
-  =image_tag "http://upload.wikimedia.org/wikipedia/commons/5/51/#{CGI::escape @word.chars_trad}-bw.png"
-
-="http://upload.wikimedia.org/wikipedia/commons/5/51/#{CGI::escape @word.chars_trad}-bw.png"
 :javascript
   soundManager.setup({
     // required: path to directory containing SM2 SWF files
