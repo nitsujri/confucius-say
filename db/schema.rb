@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130906030941) do
+ActiveRecord::Schema.define(version: 20130930084632) do
 
   create_table "compound_word_links", force: true do |t|
     t.integer  "compound_id"
@@ -76,6 +76,10 @@ ActiveRecord::Schema.define(version: 20130906030941) do
     t.datetime "updated_at"
     t.text     "english_2"
     t.boolean  "single_char"
+    t.string   "stroke_image_file_name"
+    t.string   "stroke_image_content_type"
+    t.integer  "stroke_image_file_size"
+    t.datetime "stroke_image_updated_at"
   end
 
 end

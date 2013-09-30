@@ -15,10 +15,10 @@ class Word < ActiveRecord::Base
   scope :sound_ordered_info, -> { includes(:more_info).order("word_data.sound_url").reverse_order }
 
   has_attached_file :stroke_image,
-    :storage => :s3,
-    :bucket => "stroke-images",
-    :s3_credientials => YAML.load(File.join(Rails.root, "config", "aws-s3.yml"))[Rails.env],
-    :s3_hostname => "Oregon"
+    :storage        => :s3,
+    :bucket         => "confucius-say",
+    :s3_credentials => YAML.load_file(File.join(Rails.root, "config", "aws-s3.yml")).with_indifferent_access[Rails.env],
+    :s3_hostname    => "Oregon"
 
   def simp_diff?
     self.chars_trad != self.chars_simp
