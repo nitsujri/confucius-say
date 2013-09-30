@@ -1,5 +1,5 @@
 #search-box-container
   =form_tag search_path, :method => 'get' do
     .search-field-container
-      = text_field_tag :q, params[:q] || @word.chars_trad || "Search/Translate Words", :class => "search_input"
+      = text_field_tag :q, params[:q] || (@word ? @word.chars_trad : nil) || "Search/Translate Words", :class => "search_input"
     = submit_tag "Go", :name => nil, :class => "search-submit btn btn-success"
