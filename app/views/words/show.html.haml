@@ -28,6 +28,9 @@
 %h6
   Stroke Order
 
+-if @word.stroke_image
+  =image_tag @word.stroke_image.url
+
 :javascript
   soundManager.setup({
     // required: path to directory containing SM2 SWF files
