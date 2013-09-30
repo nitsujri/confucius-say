@@ -21,6 +21,7 @@ gem 'awesome_print'
 group :development do
   gem 'httparty'
   gem 'nokogiri'
+  gem 'rmagick'
 end
 
 # Use SCSS for stylesheets

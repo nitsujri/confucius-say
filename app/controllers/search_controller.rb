@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   def index
-    @searched = params[:q]
+    @searched = params[:q].strip
     @page_num = params[:page]
     
     #we have english only, so let's use bing translate
@@ -16,6 +16,10 @@ class SearchController < ApplicationController
 
     #look for exact match
     @chinese_words = Word.where('chars_trad = ? OR chars_simp = ?', chars, chars)
+
+    if @chinese_words.count == 1
+      redirect_to word_path(@chinese_words.first)
+    end
 
     unless @chinese_words.blank?
       #add in LIKE entries, but have the exact match entries removed

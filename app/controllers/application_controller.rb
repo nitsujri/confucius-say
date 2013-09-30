@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   private
 
   def urlify_ch(text)
-    text.gsub(/\U+FFEF\U+FFBC/, "-")
+    CGI::escape(text.gsub(/\U+FFEF\U+FFBC/, "-"))
   end
 
   def urlify_en(text)
