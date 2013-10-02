@@ -7,9 +7,15 @@ module SearchHelper
 
     split.map.with_index do |word, index|
 
+      next unless word.match(/[a-zA-Z]+?[1-6]/)
+
       tone = "tone-" + word[-1].to_s
 
-      content_tag :span, :class => "bubbleInfo" do
+      stuff = content_tag :a, :href => "http://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/sound/#{word}.wav", :class => "sm2_button" do
+        "Play"
+      end
+
+      stuff += content_tag :span, :class => "bubbleInfo" do
         output = content_tag :a, :href => "#", :class => "trigger" do
           word
         end
@@ -36,6 +42,8 @@ module SearchHelper
 
         output
       end
+
+      stuff
     end.join("\n").html_safe
 
   end

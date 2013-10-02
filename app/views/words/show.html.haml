@@ -1,3 +1,8 @@
+:javascript
+  soundManager.setup({
+    // required: path to directory containing SM2 SWF files
+  });
+
 =render :partial => 'search/search_box'
 
 %h6
@@ -28,13 +33,10 @@
 %h6
   Stroke Order
 
--if @word.stroke_image
+-if @word.stroke_image.file?
   =image_tag @word.stroke_image.url
 
-:javascript
-  soundManager.setup({
-    // required: path to directory containing SM2 SWF files
-  });
+
   
 %table
   -@word.compounds.sound_ordered_info.each do |compound|
