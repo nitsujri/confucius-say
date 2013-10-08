@@ -11,7 +11,9 @@ module SearchHelper
 
       tone = "tone-" + word[-1].to_s
 
-      stuff = content_tag :a, :href => "http://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/sound/#{word}.wav", :class => "sm2_button" do
+      word_sani = word.gsub(/\*.+?/, "")
+
+      stuff = content_tag :a, :href => "http://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/sound/#{word_sani}.wav", :class => "sm2_button" do
         "Play"
       end
 

@@ -35,8 +35,6 @@
 
 -if @word.stroke_image.file?
   =image_tag @word.stroke_image.url
-
-
   
 %table
   -@word.compounds.sound_ordered_info.each do |compound|
