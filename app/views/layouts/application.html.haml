@@ -27,20 +27,7 @@
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
     = javascript_include_tag "application"
   %body
-    .navbar.navbar-fluid-top
-      .navbar-inner
-        .container-fluid
-          %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          %a.brand{href: "#"} ConfuciusSay
-          .container-fluid.nav-collapse
-            %ul.nav
-              %li= link_to "Link1", "/path1"
-              %li= link_to "Link2", "/path2"
-              %li= link_to "Link3", "/path3"
-          / /.nav-collapse
+    =render :partial => "shared/navbar"
     .container-fluid
 
       .row-fluid
@@ -51,17 +38,10 @@
             .alert
               =alert
       .row-fluid
-        .span3
-          .well.sidebar-nav
-            %ul.nav.nav-list
-              %li.nav-header Sidebar
-              %li= link_to "Link1", "/path1"
-              %li= link_to "Link2", "/path2"
-              %li= link_to "Link3", "/path3"
-          / /.well
-        / /span
-        .span9
-          = bootstrap_flash
+        .span12
+          = render :partial => 'search/search_box'
+      .row-fluid
+        .span12
           = yield
       / /row
       %footer

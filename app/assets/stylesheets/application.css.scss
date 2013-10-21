@@ -3,7 +3,8 @@
 @import "home";
 @import "search";
 @import "mp3-player-button";
-@import "bootstrap_and_overrides";
+@import "twitter/bootstrap";
+
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -17,6 +18,10 @@
  *= require_self
  *= require_tree .
  */
+
+body{ 
+  padding-top: 70px;
+}
 
  #soundmanager-debug {
  /* SM2 debug container (optional, makes debug more useable) */
