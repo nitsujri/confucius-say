@@ -1,14 +1,101 @@
-.tip-of-day
-  %ol
+%h1
+  Basics of Cantonese Tones
+
+%p
+  Here's a
+  =link_to "mnemonic device", "http://en.wikipedia.org/wiki/Mnemonic"
+  to help you remember/learn the tones. I learned this at my 
+  =(link_to "cantonese class", "http://www.vtc.edu.hk/vec/intro_eng_em.html") + "."
+
+%p.p-s
+  P.S.
+  Tones are SUPER important in Cantonese. *shames* I used to think it wasn't until I showed up in HK. 
+
+%h3
+  Basics
+%p
+  %ul
     %li
-      Tone 1: 一
+      The system used on this website is 
+      =(link_to "Jyutping", "http://en.wikipedia.org/wiki/Jyutping") + "."
+      There is also 
+      =link_to "yale", "http://en.wikipedia.org/wiki/Yale_Romanization"
+      and others.
     %li
-      Tone 2: 碗
+      There are 6 tones in Jyutping (technically 9, but we'll ignore that). This mnemonic device passes through all 6 major tones with very common and distinct words.
     %li
-      Tone 3: 細
-    %li
-      Tone 4: 牛
-    %li
-      Tone 5: 腩
-    %li
-      Tone 6: 麵
+      Below translates into 
+      =surround '"' do
+        %b 1 small bowl of beef brisket noodles
+
+:ruby
+  the_tones = [
+    {
+      :chars_trad => "一",
+      :link       => "/一-one-1-single-a/37",
+      :jyutping   => "jat1",
+      :english    => "One",
+    },
+    {
+      :chars_trad => "碗",
+      :link       => "/碗-bowl-cup-cl/63429",
+      :jyutping   => "wun2",
+      :english    => "Bowl",
+    },
+    {
+      :chars_trad => "細",
+      :link       => "/細-thin-or-slender-finely-particulate-thin-and-soft-fine-delicate-trifling--quiet-frugal/67683",
+      :jyutping   => "sai3",
+      :english    => "Small",
+    },
+    {
+      :chars_trad => "牛",
+      :link       => "/牛-surname-niu/56934",
+      :jyutping   => "ngau4",
+      :english    => "Beef (cow)",
+    },
+    {
+      :chars_trad => "腩",
+      :link       => "/腩-brisket-belly-beef-spongy-meat-from-cows-underside-and-neighboring-ribs-see--esp-cantonese-erroneously-translated-as-sirloin/72136",
+      :jyutping   => "lam5",
+      :english    => "Brisket",
+    },
+    {
+      :chars_trad => "麵",
+      :link       => "/麵-flour-noodles/98006",
+      :jyutping   => "min6",
+      :english    => "Noodles",
+    },
+  ]
+
+%h3
+  The Tones
+
+.the-tones
+  %table.table
+    %thead
+      %tr
+        %th
+          Tone #
+        %th
+          Character
+        %th
+          Jyutping
+        %th
+          English Meaning
+    -the_tones.to_enum.with_index(1) do |tone_ex, index|
+      %tr
+        %td
+          =(index.to_s) + "."
+        %td
+          =link_to tone_ex[:chars_trad], tone_ex[:link]
+        %td
+          %a.sm2_button{:href => "http://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/sound/#{tone_ex[:jyutping]}.wav"}
+          =tone_ex[:jyutping]
+        %td
+          =tone_ex[:english]
+
+%h3
+  Tonal Graph
+
+=image_tag "6-tones-in-cantonese.png"

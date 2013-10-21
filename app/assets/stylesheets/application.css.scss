@@ -7,16 +7,13 @@
 
 // Main Files
 @import "home";
+@import "footer";
 @import "learn";
 @import "search";
 @import "words";
 
 body{ 
   padding-top: 70px;
-}
-
-.copyright{
-  color: $grey;
 }
 
  #soundmanager-debug {
