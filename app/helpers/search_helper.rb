@@ -18,10 +18,8 @@ module SearchHelper
       end
 
       #bubbleInfo
-      stuff += content_tag :span, :class => "" do
-        output = content_tag :a, :href => "#", :class => "trigger" do
-          word
-        end
+      stuff += content_tag :span, :class => "trigger" do
+        word
       end
 
       stuff
@@ -30,13 +28,3 @@ module SearchHelper
   end
 
 end
-
-
-#             .bubbleInfo
-#               %a.trigger{:href => "#"}
-#                 =r.jyutping
-#               .popup
-#                 %h1
-#                   =r.jyutping
-#                 .image
-#                   =image_tag "/images/cantonese_tones.png"
