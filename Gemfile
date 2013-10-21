@@ -15,6 +15,7 @@ gem 'aws-sdk', '~> 1.5.7'
 gem 'haml'
 gem 'bourbon'
 gem 'kaminari' #pagination
+gem "twitter-bootstrap-rails"
 
 # gem "bing_translator", github: "nitsujri/bing_translator-gem", tag: "3.3.0"
 gem "bing_translator", "~> 4.0.0"
