@@ -13,7 +13,7 @@ module SearchHelper
 
       word_sani = word.gsub(/\*.+?/, "")
 
-      stuff = content_tag :a, class: "sm2_button", :href => "http://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/sound/#{word_sani}.wav", :class => "sm2_button" do
+      stuff = content_tag :a, class: "sm2_button", id: "press", :href => "http://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/sound/#{word_sani}.wav", :class => "sm2_button" do
         "Play"
       end
 

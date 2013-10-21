@@ -35,10 +35,11 @@
       -if @word.english_2.present?
         %li
           =@word.english_2
-  %dt
-    Stroke Order
-  %dd
-    -if @word.stroke_image.file?
+
+  -if @word.stroke_image.file?
+    %dt
+      Stroke Order
+    %dd
       =image_tag @word.stroke_image.url
 
   %dt
