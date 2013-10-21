@@ -31,14 +31,6 @@ module SearchHelper
             out1 += " - " + word
           end
 
-          #out1 gets used again
-          out += content_tag :div, :class => "image #{tone}" do
-            out1 = tag :img, :src => "/images/6-tones-in-cantonese.png"
-
-            out1 += content_tag :div, "", :class => "screen-l"
-            out1 += content_tag :div, "", :class => "screen-r"
-            out1
-          end
           out
         end
 

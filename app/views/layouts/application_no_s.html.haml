@@ -5,19 +5,18 @@
   
   %body
     =render :partial => "shared/navbar"
-    .container-fluid
+    .container
 
-      .row-fluid
+      .row
         -if notice || alert
           .flash-msgs
             .notice
               =notice
             .alert
               =alert
-      .row-fluid
+      .row
         .span12
           = yield
       / /row
-      %footer
-        %p © Company 2013
+      =render :partial => "layouts/footer"
     / /container

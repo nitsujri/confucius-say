@@ -11,9 +11,8 @@ ConfuciusSay::Application.routes.draw do
   get 'search' => 'search#index', :as => 'search'
   get 'search/autocomplete' => 'search#autocomplete'
 
-  get 'learn/tones' => 'learn#tones'
-
-
+  get 'learn/tones' => 'learn#tones', :as => "learn_tones"
+  
   get ':translated/:id' => 'words#show', :constraints => { :translated => /.*/ }
 
   # Example of named route that can be invoked with purchase_url(id: product.id)

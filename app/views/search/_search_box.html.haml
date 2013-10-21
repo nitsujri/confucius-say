@@ -1,11 +1,11 @@
 #search-box-container
-  .row-fluid
+  .row
     =form_tag search_path, :method => 'get' do
       .col-lg-12
         .input-group
           = text_field_tag :q, params[:q] || (@word ? @word.chars_trad : nil) || "Search/Translate Words", :class => "search_input form-control"
           %span.input-group-btn
-            %button#search-submit.btn.btn-default{type: "button"}
+            %button#search-submit.btn.btn-default{type: "submit"}
               .glyphicon.glyphicon-search
 
         / /input-group
