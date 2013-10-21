@@ -3,44 +3,55 @@
     // required: path to directory containing SM2 SWF files
   });
 
-%h6
-  Traditional
-%p
-  =@word.chars_trad
+#full-chars.text-center
+  %span
+    .chars-trad
+      =@word.chars_trad
+      %h6
+        Traditional
+        -if @word.chars_trad == @word.chars_simp
+          &
+          Simplified
 
-%h6
-  Simplified
-%p
-  =@word.chars_simp
+  -unless @word.chars_trad == @word.chars_simp
+    %span
+      .chars-simp
 
-%h6
-  Jyutping
-%p
-  =build_jyutping(@word)
+        ="(#{@word.chars_simp})"
+        %h6
+          Simplified
 
-%h6
-  English
-%p
-  %ol
-    %li
-      =@word.english
-    -if @word.english_2.present?
+%dl#word-info.dl-horizontal
+  %dt
+    Jyutping
+  %dd
+    =build_jyutping(@word)
+  %dt
+    English
+  %dd
+    %ol
       %li
-        =@word.english_2
+        =@word.english
+      -if @word.english_2.present?
+        %li
+          =@word.english_2
+  %dt
+    Stroke Order
+  %dd
+    -if @word.stroke_image.file?
+      =image_tag @word.stroke_image.url
 
-%h6
-  Stroke Order
+  %dt
+    Example Sentences
 
--if @word.stroke_image.file?
-  =image_tag @word.stroke_image.url
-  
-%table
-  -@word.compounds.sound_ordered_info.each do |compound|
-    %tr
-      %td
-        -if compound.more_info.try(:sound_url).present?
-          %a.sm2_button{:href => "http://bigspace.celerity.co.uk/cantonese/" + compound.more_info.try(:sound_url)} Play
-      %td
-        =compound.chars_trad
-      %td
-        =compound.english
+  %dd  
+    %table
+      -@word.compounds.sound_ordered_info.each do |compound|
+        %tr
+          %td.example-play
+            -if compound.more_info.try(:sound_url).present?
+              %a.sm2_button{:href => "http://bigspace.celerity.co.uk/cantonese/" + compound.more_info.try(:sound_url)} Play
+          %td
+            =compound.chars_trad
+          %td
+            =compound.english

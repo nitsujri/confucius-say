@@ -13,28 +13,15 @@ module SearchHelper
 
       word_sani = word.gsub(/\*.+?/, "")
 
-      stuff = content_tag :a, :href => "http://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/sound/#{word_sani}.wav", :class => "sm2_button" do
+      stuff = content_tag :a, class: "sm2_button", :href => "http://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/sound/#{word_sani}.wav", :class => "sm2_button" do
         "Play"
       end
 
-      stuff += content_tag :span, :class => "bubbleInfo" do
+      #bubbleInfo
+      stuff += content_tag :span, :class => "" do
         output = content_tag :a, :href => "#", :class => "trigger" do
           word
         end
-
-        output += content_tag :div, :class => "popup" do
-          out = content_tag :h1 do
-            out1 = content_tag :span, :class => "large_chinese_chars" do
-              full_word.chars_trad[index]
-            end 
-
-            out1 += " - " + word
-          end
-
-          out
-        end
-
-        output
       end
 
       stuff
