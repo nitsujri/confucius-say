@@ -2,7 +2,7 @@
 %html{lang: "en"}
   
   =render :partial => "layouts/head"
-
+  
   %body
     =render :partial => "shared/navbar"
     .container-fluid
@@ -14,9 +14,6 @@
               =notice
             .alert
               =alert
-      .row-fluid
-        .span12
-          = render :partial => 'search/search_box'
       .row-fluid
         .span12
           = yield

@@ -11,6 +11,8 @@ ConfuciusSay::Application.routes.draw do
   get 'search' => 'search#index', :as => 'search'
   get 'search/autocomplete' => 'search#autocomplete'
 
+  get 'learn/tones' => 'learn#tones'
+
 
   get ':translated/:id' => 'words#show', :constraints => { :translated => /.*/ }
 
