@@ -19,6 +19,7 @@ class SearchController < ApplicationController
 
     if @chinese_words.count == 1
       redirect_to word_path(@chinese_words.first)
+      return
     end
 
     unless @chinese_words.blank?
