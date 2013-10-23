@@ -49,5 +49,5 @@ $ ->
     val = @value
     if val isnt oldVal
       oldVal = val
-      unless val == ""
+      unless trim(val) == ""
         $('#search-form').submit()
