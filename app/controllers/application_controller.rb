@@ -13,6 +13,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def nothing
+    render :text => ""
+  end
+
   private
 
   def urlify_ch(text)

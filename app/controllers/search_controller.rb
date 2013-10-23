@@ -26,6 +26,10 @@ class SearchController < ApplicationController
       @chinese_words += Word.where('(chars_trad LIKE ? OR chars_simp LIKE ?) AND id <> ?', "%#{chars}%", "%#{chars}%", @chinese_words.first.id)
     end
 
+    if request.headers['X-PJAX']
+      render :layout => false
+    end
+
   end
 
   def autocomplete

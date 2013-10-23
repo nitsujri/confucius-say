@@ -1,6 +1,6 @@
 #search-box-container
   .row
-    =form_tag search_path, :method => 'get' do
+    =form_tag search_path, :method => 'get', :"data-pjax" => "" do
       .col-lg-12
         .input-group
           = text_field_tag :q, params[:q] || (@word ? @word.chars_trad : nil) || "Search/Translate Words", :class => "search_input form-control"
@@ -14,9 +14,9 @@
 
 
 .example-search-container
-  e.g. 
-  =raw "#{link_to "你", "#", :class => "example-search"}, #{link_to "you", "#", :class => "example-search"}, #{link_to "屌你老母", "#", :class => "example-search"}"
+  go fast: / - for search focus or just start typing
 
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  shortcuts:
-  \/ - to search box
+  &nbsp;&nbsp;
+
+  (e.g. 
+  =raw "#{link_to "你", "#", :class => "example-search"}, #{link_to "you", "#", :class => "example-search"}, #{link_to "屌你老母", "#", :class => "example-search"})"

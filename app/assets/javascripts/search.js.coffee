@@ -3,6 +3,21 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
+  $(document).keypress (e) -> 
+
+    # Grab / or any key (slash will enter a slash without typing)
+    unless $('#q').is(":focus")
+      if e.which == 47 or e.which == 191 or e.which == 111
+        $('#q').focus()
+        e.preventDefault()
+      else
+        $('#q').focus()
+      
+    # Grab Esc - not working, probably need to use keydown
+    if e.which == 27
+      alert "HIHI"
+      $.blur()
+
   #Textbox work ===============================
   # orig_text = $('.search_input').val()
   orig_text = "Search/Translate Words"
@@ -19,6 +34,12 @@ $ ->
   $(".example-search").click ->
     $(".search_input").val($(this).html())
     false
+
+
+  #PJAX =======================================
+  $(document).on "submit", "form[data-pjax]", (event) ->
+    $.pjax.submit event, "#main-content"
+
 
   # #Popup work
   # $(".bubbleInfo").each ->
