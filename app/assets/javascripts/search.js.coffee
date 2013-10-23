@@ -33,6 +33,7 @@ $ ->
   #Example search links =======================
   $(".example-search").click ->
     $(".search_input").val($(this).html())
+    $('#search-form').submit()
     false
 
 
@@ -40,6 +41,17 @@ $ ->
   $(document).on "submit", "form[data-pjax]", (event) ->
     $.pjax.submit event, "#main-content"
 
+
+  #Search while typing ========================
+
+  oldVal = $('#q').val()
+  $("input").on "change keypress paste focus textInput input", ->
+    val = @value
+    if val isnt oldVal
+      oldVal = val
+      unless val == ""
+        $('#search-form').submit()
+      
 
   # #Popup work
   # $(".bubbleInfo").each ->

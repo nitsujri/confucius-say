@@ -1,6 +1,6 @@
 #search-box-container
   .row
-    =form_tag search_path, :method => 'get', :"data-pjax" => "" do
+    =form_tag search_path, :method => 'get', :"data-pjax" => "", :id => "search-form" do
       .col-lg-12
         .input-group
           = text_field_tag :q, params[:q] || (@word ? @word.chars_trad : nil) || "Search/Translate Words", :class => "search_input form-control"
