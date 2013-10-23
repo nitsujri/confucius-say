@@ -3,7 +3,7 @@ module SearchHelper
 
     return unless full_word.jyutping.present? 
 
-    split = full_word.jyutping.split(/\s/)
+    split = full_word.jyutping.split(/[\s\/]/)
 
     split.map.with_index do |word, index|
 
