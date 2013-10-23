@@ -18,7 +18,7 @@ class SearchController < ApplicationController
     @chinese_words = Word.where('chars_trad = ? OR chars_simp = ?', chars, chars)
 
     if @chinese_words.count == 1
-      redirect_to word_path(@chinese_words.first)
+      redirect_to word_path(@chinese_words.first, :q => @searched)
       return
     end
 

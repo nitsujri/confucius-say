@@ -5,12 +5,14 @@ class ApplicationController < ActionController::Base
 
   helper_method :word_path
 
-  def word_path(word)
-    unless word.english.present?
+  def word_path(word, params)
+    output = unless word.english.present?
       "/" + urlify_ch(word.chars_trad) + "/" + word.id.to_s
     else
       "/" + urlify_ch(word.chars_trad) + "-" + urlify_en(word.english) + "/" + word.id.to_s
     end
+
+    output + "?" + params.to_query 
   end
 
   def nothing
