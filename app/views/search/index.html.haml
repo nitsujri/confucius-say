@@ -28,7 +28,7 @@
           -break if index > 100
           %tr
             %td
-              =link_to index.to_s + ".", word_path(r)
+              =link_to index.to_s + ".", word_path(r, :q => @searched)
             %td.chinese_chars
               =r.chars_trad
             %td.chinese_chars
