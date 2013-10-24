@@ -4,7 +4,9 @@
   %span#searched-word
     =@searched
 
-=@error_msg
+-if @error_msg
+  .alert.alert-danger
+    =@error_msg
 
 #search-results
   %table.table
@@ -23,12 +25,11 @@
           Example
     %tbody
       -i=0
-      -if @chinese_words.present?
-        -@chinese_words.to_enum.with_index(1) do |r, index|
-          -break if index > 100
+      -if @db_results.present?
+        -@db_results.to_enum.with_index(1) do |r, index|
           %tr
             %td
-              =link_to index.to_s + ".", word_path(r, :q => @searched)
+              =link_to index.to_s + ".", word_path(r)
             %td.chinese_chars
               =r.chars_trad
             %td.chinese_chars
@@ -52,6 +53,27 @@
       -else
         %tr
           %td{:colspan => 6}
-            We did not find anything. What were you looking for?
-.pagination
-  =#paginate @solr.results
+            .alert.alert-warning
+              We did not directly find something for 
+              =@searched + "."
+
+-if @char_by_char
+  #sentence-results
+    %h2
+      =@searched
+      \- Character by Character
+
+    %table.sentence-r-table
+      %tr
+        -@char_by_char.each do |word|
+          %td.text-center
+            =link_to word.chars_trad, word_path(word), :class => "result-char"
+      %tr
+        -@char_by_char.each do |word|
+          %td.text-center
+            =build_jyutping(word)
+
+      %tr
+        -@char_by_char.each do |word|
+          %td
+            =truncate word.english, :length => 25

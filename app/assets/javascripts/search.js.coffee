@@ -10,6 +10,7 @@ $ ->
       if e.which == 47 or e.which == 191 or e.which == 111
         $('#q').focus()
         e.preventDefault()
+        return
       else
         $('#q').focus()
       
