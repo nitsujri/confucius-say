@@ -37,9 +37,15 @@ $ ->
     false
 
 
+  #SoundManager ===============================
+  soundManager.setup()
+
   #PJAX =======================================
   $(document).on "submit", "form[data-pjax]", (event) ->
     $.pjax.submit event, "#main-content"
+
+  $(document).on "pjax:success", ->
+    soundManager.setup()
 
 
   #Search while typing ========================
