@@ -1,12 +1,25 @@
 
-%h2#searched
-  You Searched:
-  %span#searched-word
+.page-header
+  %h1
+    %small
+      You Searched:
     =@searched
+
+-if @translated_to.present?
+  .pull-right
+    Translated to:
+    =@translated_to
+    ="(by " + (link_to "Bing", "http://www.bing.com/translator") + ")"
+
 
 -if @error_msg
   .alert.alert-danger
-    =@error_msg
+    %p
+      %b
+        Oh Noes! 
+      Stupid Bing... sigh sorry guys! Try again later.
+    %p
+      =@error_msg
 
 #search-results
   %table.table
@@ -54,8 +67,9 @@
         %tr
           %td{:colspan => 6}
             .alert.alert-warning
-              We did not directly find something for 
-              =@searched + "."
+              We did not directly find something for
+              = surround '"', '".' do
+                %b=@searched
 
 -if @char_by_char
   #sentence-results

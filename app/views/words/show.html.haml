@@ -1,3 +1,18 @@
+-unless @searched.blank? or @searched == @word.chars_trad or @searched == @word.chars_simp
+  #translation-notice.alert.alert-success
+    You searched
+    %b
+      ='"' + (@searched) + '"'
+    and that directly translated to:
+    =succeed "." do
+      %b=@word.chars_trad
+      -unless @word.chars_trad == @word.chars_simp
+        ="(#{@word.chars_simp})"
+    If you would like to see all results for
+    ='"' + (@searched) + '"'
+    perform a
+    =(link_to "Full Search", "/search?utf8=%E2%9C%93&q=#{@searched}&all=true") + "."
+
 #full-chars.text-center
   %span
     .chars-trad
