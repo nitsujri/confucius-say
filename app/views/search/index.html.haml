@@ -19,7 +19,9 @@
         Oh Noes! 
       Stupid Bing... sigh sorry guys! Try again later.
     %p
-      =@error_msg
+      Error Message:
+      =surround '"' do
+        =@error_msg
 
 #search-results
   %table.table
