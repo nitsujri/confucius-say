@@ -31,13 +31,6 @@ $ ->
     if $(this).val() == ""
       $(this).val(orig_text)
 
-  #Example search links =======================
-  $(".example-search").click ->
-    $(".search_input").val($(this).html())
-    $('#search-form').submit()
-    false
-
-
   #SoundManager ===============================
   soundManager.setup()
 
