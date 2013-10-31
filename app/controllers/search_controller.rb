@@ -5,6 +5,7 @@ class SearchController < ApplicationController
     
     #we have english only, so let's use bing translate ==============================
     if @searched.ascii_only?
+      bing_tries = 0
       begin
 
         raise BingTranslator::Exception.new "Not on Production. Not going to translate using Bing.com" unless Rails.env == "production"
@@ -13,7 +14,11 @@ class SearchController < ApplicationController
 
         @translated_to = translated_chars
       rescue BingTranslator::Exception => e
+
         @error_msg = e.message
+
+        bing_tries += 1
+        retry if bing_tries <= 10
       end
     else
       translated_chars = @searched
