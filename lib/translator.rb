@@ -1,22 +1,32 @@
 class Translator
 
-  def load_bing_translator
-    yml_file = YAML.load_file(File.join(Rails.root, "config", 'bing_translator.yml' ))
-
-    client_id     = yml_file["development"]["client_id"] if client_id.nil?
-    client_secret = yml_file["development"]["client_secret"] if client_secret.nil?
-
-    BingTranslator.new(client_id, client_secret)
-  end
-
   class << self
-    def load
-      @translator ||= Translator.new.load_bing_translator
+
+    def load_bing_translator
+      yml_file = YAML.load_file(File.join(Rails.root, "config", 'bing_translator.yml' ))
+
+      client_id     = yml_file[Rails.env]["client_id"] if client_id.nil?
+      client_secret = yml_file[Rails.env]["client_secret"] if client_secret.nil?
+      @tot_retries  = yml_file[Rails.env]["retries"] if @tot_retries.nil?
+
+      @translator ||= BingTranslator.new(client_id, client_secret)
     end
 
     def to_cht(string)
-      translator = load
-      translator.translate string, :to => 'zh-CHT'
+      translator = load_bing_translator
+
+      #This stupid thing was built because I hate bing and being in HK sets off stupid flags.
+      bing_tries = 0
+      begin
+        translator.translate string, :to => 'zh-CHT'
+      rescue BingTranslator::Exception => e
+        bing_tries += 1
+        retry if bing_tries <= (@tot_retries || 10)
+
+        #If the retries don't work pass the exception upward
+        raise BingTranslator::Exception.new e
+      end
+
     end
   end
 end
