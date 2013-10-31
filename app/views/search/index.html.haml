@@ -5,11 +5,13 @@
       You Searched:
     =@searched
 
--if @translated_to.present?
+    -if @translated_to.present?
+      %span.glyphicon.glyphicon-arrow-right
+      =@translated_to
   .pull-right
-    Translated to:
-    =@translated_to
-    ="(by " + (link_to "Bing", "http://www.bing.com/translator") + ")"
+    .translated-by
+      =surround "Translated by ", "" do
+        =link_to "Bing", "http://www.bing.com/translator"
 
 
 -if @error_msg
