@@ -20,7 +20,6 @@ class WordsController < ApplicationController
 
   #Remove duplicates and order the subword based on the word itself
   def order_subwords(to_order, main_word)
-    to_order = to_order.to_enum
 
     to_order.select{|x| x.chars_trad.length > 1}.each do |to_remove|
       to_remove.chars_trad.split(//).each do |remove_this|
