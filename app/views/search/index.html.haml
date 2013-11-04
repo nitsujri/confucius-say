@@ -85,7 +85,11 @@
       %tr
         -@char_by_char.each do |word|
           %td.text-center
-            =link_to word.chars_trad, word_path(word), :class => "result-char"
+            =link_to word.chars_trad, word_path(word), :class => "result-chars"
+            -unless word.chars_trad == word.chars_simp
+              %span.result-chars-simp
+                =surround "(", ")" do
+                  =word.chars_simp
       %tr
         -@char_by_char.each do |word|
           %td.text-center

@@ -7,7 +7,7 @@ class Translator
 
       client_id     = yml_file[Rails.env]["client_id"] if client_id.nil?
       client_secret = yml_file[Rails.env]["client_secret"] if client_secret.nil?
-      @tot_retries  = yml_file[Rails.env]["retries"] if @tot_retries.nil?
+      @tot_retries  = ((yml_file[Rails.env]["retries"] if @tot_retries.nil?) || 10)
 
       @translator ||= BingTranslator.new(client_id, client_secret)
     end
@@ -21,7 +21,7 @@ class Translator
         translator.translate string, :to => 'zh-CHT'
       rescue BingTranslator::Exception => e
         bing_tries += 1
-        retry if bing_tries <= (@tot_retries || 10)
+        retry if bing_tries <= @tot_retries
 
         #If the retries don't work pass the exception upward
         raise BingTranslator::Exception.new e
