@@ -32,10 +32,16 @@
           Simplified
 
 %dl#word-info.dl-horizontal
-  %dt
-    Jyutping
-  %dd
-    =build_jyutping(@word)
+  -if @word.jyutping
+    %dt
+      Jyutping
+    %dd
+      =build_jyutping(@word)
+  -if @word.more_info.try(:sound_url).present?
+    %dt
+      Sentence Sound Clip
+    %dd
+      %a.sm2_button{:href => "http://bigspace.celerity.co.uk/cantonese" + @word.more_info.try(:sound_url)}
   %dt
     English
   %dd
@@ -52,6 +58,21 @@
     %dd.stroke-image
       =image_tag @word.stroke_image.url
 
+  -if @word.subwords.present?
+    %dt
+      Individual Words
+
+    %dd  
+      %table
+        -@ordered_subs.each do |word|
+          %tr
+            %td
+              = link_to word.chars_trad, word_path(word), class: "example-chars"
+            %td
+              =build_jyutping(word)
+            %td
+              =word.english
+
   -if @word.compounds.present?
     %dt
       Example Sentences
@@ -62,12 +83,13 @@
           %tr
             %td.example-play
               -if compound.more_info.try(:sound_url).present?
-                %a.sm2_button{:href => "http://bigspace.celerity.co.uk/cantonese/" + compound.more_info.try(:sound_url)}
+                %a.sm2_button{:href => "http://bigspace.celerity.co.uk/cantonese" + compound.more_info.try(:sound_url)}
             %td
-              =# link_to compound.chars_trad, word_path(compound), class: "example-chars"
-              .example-chars
-                =compound.chars_trad
+              = link_to compound.chars_trad, word_path(compound), class: "example-chars"
+              / .example-chars
+              /   =compound.chars_trad
             %td
               =compound.english
+          -#
             %td
               =link_to "Link", word_path(compound)
