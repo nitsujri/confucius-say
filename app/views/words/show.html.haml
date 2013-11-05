@@ -37,8 +37,8 @@
       Sentence Sound Clip
     %dd
       %a.sm2_button{:href => "http://bigspace.celerity.co.uk/cantonese" + @word.more_info.try(:sound_url)}
-      
-  -if @word.jyutping
+
+  -if @word.jyutping && @ordered_subs.blank?
     %dt
       Jyutping
     %dd
@@ -59,7 +59,7 @@
     %dd.stroke-image
       =image_tag @word.stroke_image.url
 
-  -if @word.subwords.present?
+  -if @ordered_subs.present?
     %dt
       Individual Words
 
