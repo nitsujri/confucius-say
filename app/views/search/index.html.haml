@@ -100,5 +100,8 @@
           %td
             =truncate word.english, :length => 25
       -if @char_by_char_translated.present?
-        %tr{:colspan => @char_by_char.count}
-          =@char_by_char_translated
+        %tr
+          %td.text-center{:colspan => @char_by_char.count}
+            =surround "Translated by ", ":" do
+              =link_to "Bing", "http://www.bing.com/translator"
+            =@char_by_char_translated

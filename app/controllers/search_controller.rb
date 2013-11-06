@@ -41,8 +41,9 @@ class SearchController < ApplicationController
         if @char_by_char.present?
           @char_by_char            = sort_results(translated_chars, @char_by_char)
           @char_by_char_translated = Translator.to_en translated_chars
+          # @char_by_char_translated = "NOT PROD"
         end
-        
+
       end
     end
 
