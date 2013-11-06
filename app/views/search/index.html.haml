@@ -15,7 +15,7 @@
           =link_to "Bing", "http://www.bing.com/translator"
 
 
--if @error_msg
+-if @to_en_error_msg.present?
   .alert.alert-danger
     %p
       %b
@@ -24,7 +24,7 @@
     %p
       Error Message:
       =surround '"' do
-        =@error_msg
+        =@to_en_error_msg
 
 #search-results
   %table.table
@@ -105,13 +105,13 @@
         -@char_by_char.each do |word|
           %td
             =truncate word.english, :length => 25
-      -if @char_by_char_translated.present?
-        %tr
-          %th.text-right
-            Fully Translated
-          %td.text-center{:colspan => @char_by_char.count}
-            .translation
-              =@char_by_char_translated
-              %span.translated-by
-                =surround "(by ", ")" do
-                  =link_to "Bing", "http://www.bing.com/translator"
+      %tr
+        %th.text-right
+          Fully Translated
+        %td.text-center{:colspan => @char_by_char.count}
+          .translation
+            =surround '"', '"' do
+              =@char_by_char_translated || @char_by_char_translated_error
+            %span.translated-by
+              =surround "(by ", ")" do
+                =link_to "Bing", "http://www.bing.com/translator"

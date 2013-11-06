@@ -11,7 +11,7 @@ class SearchController < ApplicationController
 
         @translated_to = translated_chars
       rescue BingTranslator::Exception => e
-        @error_msg = e.message
+        @to_en_error_msg = e.message
       end
     else
       translated_chars = @searched
@@ -43,7 +43,7 @@ class SearchController < ApplicationController
           begin
             @char_by_char_translated = Translator.to_en translated_chars
           rescue BingTranslator::Exception => e
-            @char_by_char_translated = "Test Translation" #har har 
+            @char_by_char_translated_error = e.message #har har 
           end
         end
 
