@@ -15,24 +15,39 @@ class Translator
     def to_cht(string)
       check_env
 
-      translate_with_retries 'zh-CHT', string
+      translate_with_retries 'en', 'zh-CHT', string
     end
 
     def to_en(string)
       check_env
       
-      translate_with_retries 'en', string
+      translate_with_retries 'zh', 'en', string
     end
 
     private
 
-    def translate_with_retries(to_lang, to_translate)
+    def translate_with_retries(from_lang, to_lang, to_translate)
+
+      #try to find the translation
+      translation = Translation.find_by(to_lang: to_lang, to_translate: to_translate)
+      return translation.translated if translation.present?
+
       @translator ||= load_bing_translator
 
       #This stupid thing was built because I hate bing and being in HK sets off stupid flags.
       bing_tries = 0
       begin
-        @translator.translate to_translate, :to => to_lang
+        translated = @translator.translate to_translate, :to => to_lang
+
+        #record the translation
+        Translation.create({
+          :from_lang => from_lang,
+          :to_lang => to_lang,
+          :to_translate => to_translate,
+          :translated => translated
+        })
+
+        translated
       rescue BingTranslator::Exception => e
         bing_tries += 1
         retry if bing_tries <= @tot_retries

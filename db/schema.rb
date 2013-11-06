@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130930084632) do
+ActiveRecord::Schema.define(version: 20131106061700) do
 
   create_table "compound_word_links", force: true do |t|
     t.integer  "compound_id"
@@ -32,6 +32,17 @@ ActiveRecord::Schema.define(version: 20130930084632) do
   end
 
   add_index "extra_data", ["storable_type", "storable_id"], name: "index_extra_data_on_storable_type_and_storable_id", using: :btree
+
+  create_table "translations", force: true do |t|
+    t.string   "to_lang"
+    t.string   "from_lang"
+    t.text     "to_translate"
+    t.text     "translated"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "translations", ["to_translate"], name: "index_translations_on_to_translate", length: {"to_translate"=>10}, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
