@@ -5,7 +5,7 @@ set :repository,  "git@github.com:nitsujri/confucius-say.git"
 
 role :app, "54.214.160.76"
 role :web, "54.214.160.76"
-role :db, "54.214.160.76"
+role :db, "54.214.160.76", :primary => true
 
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
