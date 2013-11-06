@@ -7,8 +7,6 @@ class SearchController < ApplicationController
     if @searched.ascii_only?
       begin
 
-        raise BingTranslator::Exception.new "Not on Production. Not going to translate using Bing.com" unless Rails.env == "production"
-
         translated_chars = Translator.to_cht @searched
 
         @translated_to = translated_chars
@@ -37,12 +35,14 @@ class SearchController < ApplicationController
 
       # If they're still blank maybe we're dealing with a sentence of chinese =========
       if @db_results.blank?
-        split_sent   = translated_chars.split(//)
+        split_sent    = translated_chars.split(//)
         @char_by_char = Word.where('chars_trad IN (?) OR chars_simp IN (?)', split_sent, split_sent)
 
         if @char_by_char.present?
-          @char_by_char = sort_results(translated_chars, @char_by_char)
+          @char_by_char            = sort_results(translated_chars, @char_by_char)
+          @char_by_char_translated = Translator.to_en translated_chars
         end
+        
       end
     end
 
@@ -52,37 +52,37 @@ class SearchController < ApplicationController
 
   end
 
-  def autocomplete
-    output = unless params[:q].ascii_only?
-      words  = Word.where('(chars_trad LIKE ? OR chars_simp LIKE ?)', "%#{params[:q]}%", "%#{params[:q]}%")
-      words.map do |w|
-        unless w.simp_diff?
-          chinese = w.chars_trad
-        else
-          chinese = w.chars_trad + "(" + w.chars_simp + ")"
-        end
+  # def autocomplete
+  #   output = unless params[:q].ascii_only?
+  #     words  = Word.where('(chars_trad LIKE ? OR chars_simp LIKE ?)', "%#{params[:q]}%", "%#{params[:q]}%")
+  #     words.map do |w|
+  #       unless w.simp_diff?
+  #         chinese = w.chars_trad
+  #       else
+  #         chinese = w.chars_trad + "(" + w.chars_simp + ")"
+  #       end
 
-        { 
-          "id" => w.id,
-          "name" => chinese,
-        }
-      end
-    else
-      Word.search do
-        keywords params[:q]
-        paginate :page => params[:page] || 1, :per_page => 50
-      end.results.map do |r|
-        {
-          "id" => r.id,
-          "name" => r.english,
-        }
-      end
-    end
-    respond_to do |format|
-      format.html { render :json => output }
-      format.js { render :json => output }
-    end
-  end
+  #       { 
+  #         "id" => w.id,
+  #         "name" => chinese,
+  #       }
+  #     end
+  #   else
+  #     Word.search do
+  #       keywords params[:q]
+  #       paginate :page => params[:page] || 1, :per_page => 50
+  #     end.results.map do |r|
+  #       {
+  #         "id" => r.id,
+  #         "name" => r.english,
+  #       }
+  #     end
+  #   end
+  #   respond_to do |format|
+  #     format.html { render :json => output }
+  #     format.js { render :json => output }
+  #   end
+  # end
 
   private
 

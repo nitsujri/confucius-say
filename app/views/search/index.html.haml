@@ -99,3 +99,6 @@
         -@char_by_char.each do |word|
           %td
             =truncate word.english, :length => 25
+      -if @char_by_char_translated.present?
+        %tr{:colspan => @char_by_char.count}
+          =@char_by_char_translated
