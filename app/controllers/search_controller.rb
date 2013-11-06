@@ -40,8 +40,11 @@ class SearchController < ApplicationController
 
         if @char_by_char.present?
           @char_by_char            = sort_results(translated_chars, @char_by_char)
-          @char_by_char_translated = Translator.to_en translated_chars
-          # @char_by_char_translated = "NOT PROD"
+          begin
+            @char_by_char_translated = Translator.to_en translated_chars
+          rescue BingTranslator::Exception => e
+            @char_by_char_translated = "Test Translation" #har har 
+          end
         end
 
       end

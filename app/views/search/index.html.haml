@@ -8,10 +8,11 @@
     -if @translated_to.present?
       %span.glyphicon.glyphicon-arrow-right
       =@translated_to
-  .pull-right
-    .translated-by
-      =surround "Translated by ", "" do
-        =link_to "Bing", "http://www.bing.com/translator"
+  -if @translated_to.present?
+    .pull-right
+      .translated-by
+        =surround "Translated by ", "" do
+          =link_to "Bing", "http://www.bing.com/translator"
 
 
 -if @error_msg
@@ -83,6 +84,7 @@
 
     %table.sentence-r-table
       %tr
+        %td
         -@char_by_char.each do |word|
           %td.text-center
             =link_to word.chars_trad, word_path(word), :class => "result-chars"
@@ -91,17 +93,25 @@
                 =surround "(", ")" do
                   =word.chars_simp
       %tr
+        %th.text-right
+          Jyutping
         -@char_by_char.each do |word|
           %td.text-center
             =build_jyutping(word)
 
       %tr
+        %th.text-right
+          English
         -@char_by_char.each do |word|
           %td
             =truncate word.english, :length => 25
       -if @char_by_char_translated.present?
         %tr
+          %th.text-right
+            Fully Translated
           %td.text-center{:colspan => @char_by_char.count}
-            =surround "Translated by ", ":" do
-              =link_to "Bing", "http://www.bing.com/translator"
-            =@char_by_char_translated
+            .translation
+              =@char_by_char_translated
+              %span.translated-by
+                =surround "(by ", ")" do
+                  =link_to "Bing", "http://www.bing.com/translator"
