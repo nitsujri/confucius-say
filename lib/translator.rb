@@ -32,7 +32,7 @@ class Translator
       #This stupid thing was built because I hate bing and being in HK sets off stupid flags.
       bing_tries = 0
       begin
-        translator.translate to_translate, :to => to_lang
+        @translator.translate to_translate, :to => to_lang
       rescue BingTranslator::Exception => e
         bing_tries += 1
         retry if bing_tries <= @tot_retries
