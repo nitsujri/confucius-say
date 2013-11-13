@@ -16,6 +16,7 @@ ConfuciusSay::Application.routes.draw do
   #Other pages
   get 'learn/tones' => 'learn#tones', :as => "learn_tones"
   get 'legal' => 'legal#index', :as => "legal"
+  get 'daily-news' => 'daily_news#index', :as => "daily_news"
   
   get ':translated/:id' => 'words#show', :constraints => { :translated => /.*/ }
 

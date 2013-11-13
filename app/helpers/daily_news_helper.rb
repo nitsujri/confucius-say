@@ -1,0 +1,4 @@
+module DailyNewsHelper
+
+  
+end

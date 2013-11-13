@@ -3,7 +3,7 @@
     / Brand and toggle get grouped for better mobile display
     .navbar-header
       %button.navbar-toggle{"data-target" => ".navbar-ex1-collapse", "data-toggle" => "collapse", type: "button"}
-        %span.sr-only Toggle navigation
+        %span.sr-only
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
@@ -13,5 +13,7 @@
       %ul.nav.navbar-nav
         %li
           = link_to "Home", root_url
+        %li
+          = link_to "Daily News", daily_news_url
         %li
           = link_to "Learn Tones", learn_tones_url

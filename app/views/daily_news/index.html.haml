@@ -1,0 +1,57 @@
+.page-header
+  %h1
+    Daily News
+    %small
+      from 
+      =link_to "Chinanews.com", 'http://www.chinanews.com/'
+
+-if @daily_articles.present?
+  %ol
+    -@daily_articles.each do |article|
+      %li
+        %h1
+          -article[:title].each do |c|
+            %span.has-translation
+              =c.chars_trad
+              .bubble.translation-bubble
+                %table
+                  %tr
+                    %td.text-left
+                      =build_jyutping(c)
+                  %tr
+                    %td.text-left
+                      .bubble-char
+                        =link_to c.chars_trad, word_path(c), :target => "_blank"
+                  %tr
+                    %td
+                      %ol
+                        -if c.english_2.present?
+                          %li
+                            =truncate c.english_2, :legnth => 25
+                        %li
+                          =truncate c.english, :legnth => 25
+        %p
+          =article[:title_trans]
+        .article-description
+          -article[:description].each do |c|
+            %span.has-translation
+              =c.chars_trad
+              .bubble.translation-bubble
+                %table
+                  %tr
+                    %td.text-left
+                      =build_jyutping(c)
+                  %tr
+                    %td.text-left
+                      .bubble-char
+                        =link_to c.chars_trad, word_path(c), :target => "_blank"
+                  %tr
+                    %td
+                      %ol
+                        -if c.english_2.present?
+                          %li
+                            =truncate c.english_2, :legnth => 25
+                        %li
+                          =truncate c.english, :legnth => 25
+        %p
+          =article[:description_trans]
