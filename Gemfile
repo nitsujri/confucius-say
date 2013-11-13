@@ -14,20 +14,17 @@ gem 'aws-sdk', '~> 1.5.7'
 #html junk
 gem 'haml'
 gem 'bourbon'
-gem 'kaminari' #pagination
 gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails', :github => 'anjlab/bootstrap-rails'
 gem 'pjax_rails'
 
 # gem "bing_translator", github: "nitsujri/bing_translator-gem", tag: "3.3.0"
 gem "bing_translator", "~> 4.0.0"
 
-gem 'progress_bar'
-
-gem 'awesome_print'
+gem 'httparty'
+gem 'nokogiri'
 
 group :development do
-  gem 'httparty'
-  gem 'nokogiri'
+  gem 'awesome_print'
   gem 'rmagick'
 end
 
