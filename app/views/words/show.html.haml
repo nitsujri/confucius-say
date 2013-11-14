@@ -1,3 +1,11 @@
+-content_for :title do
+  =@word.chars_trad
+
+-content_for :meta_desc do
+  =@word.chars_trad
+  \-
+  =@word.english
+
 -unless @searched.blank? or @searched == @word.chars_trad or @searched == @word.chars_simp
   #translation-notice.alert.alert-success
     You searched
