@@ -12,7 +12,7 @@
     .pull-right
       .translated-by
         =surround "Translated by ", "" do
-          =link_to "Bing", "http://www.bing.com/translator"
+          =link_to Translator.name, Translator.url
 
 
 -if @to_en_error_msg.present?
@@ -20,7 +20,10 @@
     %p
       %b
         Oh Noes! 
-      Stupid Bing... sigh sorry guys! Try again later.
+      Stupid 
+      =surround "", "..." do
+        =link_to Translator.name, Translator.url
+      sigh sorry guys! Try again later.
     %p
       Error Message:
       =surround '"' do
@@ -114,4 +117,4 @@
               =@char_by_char_translated || @char_by_char_translated_error
             %span.translated-by
               =surround "(by ", ")" do
-                =link_to "Bing", "http://www.bing.com/translator"
+                =link_to Translator.name, Translator.url

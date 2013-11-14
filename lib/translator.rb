@@ -6,7 +6,7 @@ class Translator
       yml_file = YAML.load_file(File.join(Rails.root, "config", 'google_translate.yml' ))
       api_key  = yml_file[Rails.env]["api_key"] if api_key.nil?
 
-      @tot_retries  ||= ((yml_file[Rails.env]["retries"] if @tot_retries.nil?) || 10)
+      @tot_retries  ||= ((yml_file[Rails.env]["retries"] if @tot_retries.nil?) || 0)
 
       ToLang.start(api_key)
     end

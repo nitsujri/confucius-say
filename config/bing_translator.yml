@@ -1,9 +1,0 @@
-development:
-  client_id: 140dbfa8-1993-4f69-bfb2-68b590b7983a
-  client_secret: x46qGQrt2z3+TMbI5NG1ykxdJEPUKGYhT04z5uJxIi4
-  retries: 0
-
-production:
-  client_id: 140dbfa8-1993-4f69-bfb2-68b590b7983a
-  client_secret: x46qGQrt2z3+TMbI5NG1ykxdJEPUKGYhT04z5uJxIi4
-  retries: 10

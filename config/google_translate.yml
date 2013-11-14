@@ -1,5 +1,7 @@
 development:
   api_key: AIzaSyAeJXOVopnw3Lsr0HBtrjWAfY4vzL-beIo
+  retries: 0
 
 production:
   api_key: AIzaSyAeJXOVopnw3Lsr0HBtrjWAfY4vzL-beIo
+  retries: 0
