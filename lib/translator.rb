@@ -12,14 +12,10 @@ class Translator
     end
 
     def to_cht(string)
-      check_env
-
       translate_with_retries 'en', 'zh-TW', string
     end
 
     def to_en(string)
-      check_env
-      
       translate_with_retries 'zh', 'en', string
     end
 
@@ -38,6 +34,8 @@ class Translator
       #try to find the translation
       translation = Translation.find_by(to_lang: to_lang, to_translate: to_translate)
       return translation.translated if translation.present?
+
+      check_env #make sure we're only in prod
 
       @translator ||= load_translator
 
