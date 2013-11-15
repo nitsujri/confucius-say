@@ -23,6 +23,20 @@ class ApplicationController < ActionController::Base
     render :text => ""
   end
 
+  protected
+
+  #For sentences, helps sort results by how they were searched
+  def sort_results(sort_by, to_sort)
+    output = []
+    sort_by.split(//).each do |s|
+      if word = to_sort.select { |r| r.chars_trad == s || r.chars_simp == s}
+        output += word
+      end
+    end
+
+    output
+  end
+
   private
 
   def urlify_ch(text)

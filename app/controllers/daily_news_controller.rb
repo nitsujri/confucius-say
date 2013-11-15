@@ -14,8 +14,10 @@ class DailyNewsController < ApplicationController
 
     parsed_news.xpath('//item').drop(parsed_news.xpath('//item').count - 5).map do |article|
       {
+        :title_orig        => article.xpath('title').text,
         :title             => translate_chars(article.xpath('title')),
         :title_trans       => translate(article.xpath('title')),
+        :description_org   => article.xpath('description').text,
         :description       => translate_chars(article.xpath('description')),
         :description_trans => translate(article.xpath('description')),
         :link              => article.xpath('link').text,
@@ -26,14 +28,15 @@ class DailyNewsController < ApplicationController
 
   def translate_chars(chars)
     chars_split = chars.text.split(//)
-    Word.where('chars_trad IN (?) OR chars_simp IN (?)', chars_split, chars_split)
+    output = Word.where('chars_simp IN (?)', chars_split)
+    sort_results(chars.text, output)
   end
 
   def translate(phrase)
     begin
       Translator.to_en phrase.text
     rescue => e
-      "Translator error"
+      e.message
     end
   end
 end

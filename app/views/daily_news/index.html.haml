@@ -14,9 +14,11 @@
     -@daily_articles.each do |article|
       %li
         %h1
+          =article[:title_orig]
+        %h1
           -article[:title].each do |c|
             %span.has-translation
-              =c.chars_trad
+              =c.chars_simp
               .bubble.translation-bubble
                 %table
                   %tr
@@ -26,6 +28,8 @@
                     %td.text-left
                       .bubble-char
                         =link_to c.chars_trad, word_path(c), :target => "_blank"
+                        =surround "(", ")" do
+                          =c.chars_simp
                   %tr
                     %td
                       %ol
@@ -35,7 +39,10 @@
                         %li
                           =truncate c.english, :legnth => 25
         %p
+          =link_to "Original Article", article[:link]
+        %p
           =article[:title_trans]
+      -#
         .article-description
           -article[:description].each do |c|
             %span.has-translation
