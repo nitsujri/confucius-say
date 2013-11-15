@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131106061700) do
+ActiveRecord::Schema.define(version: 20131115030223) do
 
   create_table "compound_word_links", force: true do |t|
     t.integer  "compound_id"
@@ -92,5 +92,8 @@ ActiveRecord::Schema.define(version: 20131106061700) do
     t.integer  "stroke_image_file_size"
     t.datetime "stroke_image_updated_at"
   end
+
+  add_index "words", ["chars_simp"], name: "index_words_on_chars_simp", using: :btree
+  add_index "words", ["chars_trad"], name: "index_words_on_chars_trad", using: :btree
 
 end
