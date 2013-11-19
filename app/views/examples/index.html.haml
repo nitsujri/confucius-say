@@ -1,0 +1,25 @@
+.page_header
+  %h1
+    Examples
+
+%table.table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+        Chinese
+      %th
+        English
+  -@examples.to_enum.with_index(1) do |e, index|
+    %tr
+      %td
+        =surround "", "." do
+          =index
+      %td
+        %a.sm2_button{:href => "http://bigspace.celerity.co.uk/cantonese" + e.more_info.try(:sound_url)}
+      %td
+        =link_to e.chars_trad, word_path(e)
+      %td
+        =e.english
+    
