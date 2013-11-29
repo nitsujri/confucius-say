@@ -30,7 +30,8 @@ class WordsController < ApplicationController
         "translated"   => translated_text
       }
 
-      format.all { render json: output, notice: "Translation refresh completed successfully."}
+      format.json { render json: output, notice: "Translation refresh completed successfully."}
+      format.html { redirect_to(:back) }
     end
     
   end

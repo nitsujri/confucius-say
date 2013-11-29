@@ -51,3 +51,18 @@ $ ->
       oldVal = val
       unless val.trim() == ""
         $('#search-form').submit()
+
+  #Retranslate ================================
+  $('.retrans-btn').click (e) -> 
+    e.preventDefault()
+
+    #start pinwheel
+
+    $('.t-to-en').html("")
+    $.ajax(
+      url: $(this).attr('href')
+    ).done( (data) ->
+      $('.t-to-en').html(data.translated)
+    )
+    false
+

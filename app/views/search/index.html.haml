@@ -118,9 +118,9 @@
         %td.text-center{:colspan => @char_by_char.count}
           .translation
             =surround '"', '"' do
-              =@char_by_char_translated || @char_by_char_translated_error
+              %span.t-to-en=@char_by_char_translated || @char_by_char_translated_error
             %span.translated-by
               =surround "(by ", ")" do
                 =link_to Translator.name, Translator.url
 
-            =link_to "Redo", retranslate_url(:t => @searched)
+            =link_to "", retranslate_url(:t => @searched), class: "retrans-btn glyphicon glyphicon-refresh"
