@@ -15,6 +15,26 @@ class WordsController < ApplicationController
 
   end
 
+  def retranslate
+    text = params[:t].try(:strip)
+    respond_to do |format|
+      if translation = Translation.find_by(to_translate: text)
+        translation.destroy! #remove the translation
+      end
+
+      translated_text = Translator.to_en text
+
+      output = {
+        "status"       => "Successful",
+        "to_translate" => text,
+        "translated"   => translated_text
+      }
+
+      format.all { render json: output, notice: "Translation refresh completed successfully."}
+    end
+    
+  end
+
 
   private
 

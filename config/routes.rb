@@ -13,6 +13,8 @@ ConfuciusSay::Application.routes.draw do
   get 'search' => 'search#index', :as => 'search'
   get 'search/autocomplete' => 'search#autocomplete'
 
+  get 'words/retranslate' => 'words#retranslate', :as => 'retranslate'
+
   #Other pages
   get 'learn/tones' => 'learn#tones', :as => "learn_tones"
   get 'legal' => 'legal#index', :as => "legal"

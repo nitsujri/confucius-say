@@ -62,7 +62,7 @@ class Translator
     end
 
     def check_env
-      raise "Not on Production. Not going to translate using #{name}." unless Rails.env == "production"
+      # raise "Not on Production. Not going to translate using #{name}." unless Rails.env == "production"
     end
   end
 end

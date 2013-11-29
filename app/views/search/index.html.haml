@@ -122,3 +122,5 @@
             %span.translated-by
               =surround "(by ", ")" do
                 =link_to Translator.name, Translator.url
+
+            =link_to "Redo", retranslate_url(:t => @searched)
