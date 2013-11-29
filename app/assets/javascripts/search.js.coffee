@@ -53,7 +53,7 @@ $ ->
         $('#search-form').submit()
 
   #Retranslate ================================
-  $('.retrans-btn').click (e) -> 
+  $(document).on("click", '.retrans-btn', (e) -> 
     e.preventDefault()
 
     #start pinwheel
@@ -65,4 +65,4 @@ $ ->
       $('.t-to-en').html(data.translated)
     )
     false
-
+  )
