@@ -1,93 +1,58 @@
-require "bundler/capistrano"
+# config valid only for Capistrano 3.1
+lock '3.2.1'
 
-set :application, "confucius-say"
-set :repository,  "git@github.com:nitsujri/confucius-say.git"
+set :application, 'my_app_name'
+set :repo_url, 'git@example.com:me/my_repo.git'
 
-role :app, "54.214.160.76"
-role :web, "54.214.160.76"
-role :db, "54.214.160.76", :primary => true
+# Default branch is :master
+# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
-set :scm, :git
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+# Default deploy_to directory is /var/www/my_app
+# set :deploy_to, '/var/www/my_app'
 
-set :user, "ubuntu"
-set :use_sudo, false
-set :deploy_via, :remote_cache
+# Default value for :scm is :git
+# set :scm, :git
+
+# Default value for :format is :pretty
+# set :format, :pretty
+
+# Default value for :log_level is :debug
+# set :log_level, :debug
+
+# Default value for :pty is false
+# set :pty, true
+
+# Default value for :linked_files is []
+# set :linked_files, %w{config/database.yml}
+
+# Default value for linked_dirs is []
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+
+# Default value for default_env is {}
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+
+# Default value for keep_releases is 5
 set :keep_releases, 5
 
-set :deploy_to, "/data/#{application}"
-
-set :bundle_flags, "--deployment --quiet --binstubs"
-
-set :default_environment, {
-  'PATH' => "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
-}
-
-def remote_file_exists?(full_path)
-  'true' ==  capture("if [ -e #{full_path} ]; then echo 'true'; fi").strip
-end
-
-# answer = Capistrano::CLI.ui.ask "Are you sure you want to deploy *PRODUCTION*? [yes/NO]: "
-# unless answer == 'yes'
-#   raise CommandError.new("Decided NOT to deploy to Production.")
-# end
-
-before 'deploy:update_code', "deploy:add_host_keys"
-before 'deploy:assets:precompile', 'deploy:cp_database_yml'
-after 'deploy:update_code', 'deploy:setup_solr_data_dir'
-# after 'deploy:setup_solr_data_dir', 'solr:start'
-after 'deploy:update_code', 'deploy:cleanup'
-
 namespace :deploy do
-  task :add_host_keys do
-    run "sudo bash -c 'ssh-keyscan -t rsa github.com > /etc/ssh/ssh_known_hosts'"
-  end
 
-  desc "Replacing the database.yml"
-  task :cp_database_yml do
-    old_path = File.join(release_path, "config", "database.yml.production")
-    new_path = File.join(release_path, "config", "database.yml")
-    run "cp #{old_path} #{new_path}"
-  end
-end
-
-namespace :deploy do
-  task :setup_solr_data_dir do
-    unless remote_file_exists?("#{shared_path}/solr/data")
-      run "mkdir -p #{shared_path}/solr/data"
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      # Your restart mechanism here, for example:
+      execute :touch, release_path.join('tmp/restart.txt')
     end
   end
-end
 
-namespace :solr do
-  desc "start solr"
-  task :start, :roles => :app, :except => { :no_release => true } do 
-    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec sunspot-solr start --port=8983 --data-directory=#{shared_path}/solr/data --pid-dir=#{shared_path}/pids"
-  end
-  desc "stop solr"
-  task :stop, :roles => :app, :except => { :no_release => true } do 
-    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec sunspot-solr stop --port=8983 --data-directory=#{shared_path}/solr/data --pid-dir=#{shared_path}/pids"
-  end
-  desc "reindex the whole database"
-  task :reindex, :roles => :app do
-    stop
-    # run "rm -rf #{shared_path}/solr/data"
-    start
-    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake sunspot:solr:reindex"
-  end
-end
+  after :publishing, :restart
 
-# if you want to clean up old releases on each deploy uncomment this:
-# after "deploy:restart", "deploy:cleanup"
-
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
-
-# If you are using Passenger mod_rails uncomment this:
-namespace :deploy do
-  task :start do ; end
-  task :stop do ; end
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      # within release_path do
+        # execute :rake, 'cache:clear'
+      # end
+    end
   end
+
 end
