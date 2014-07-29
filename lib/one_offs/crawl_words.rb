@@ -22,7 +22,7 @@ class OneOffs
           #extract response
           extracted_data = parse_response(response)
 
-          ap extracted_data
+          # ap extracted_data
 
           unless extracted_data.empty?
             #verify and store
