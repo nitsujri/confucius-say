@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
-  $(document).keypress (e) -> 
+  $(document).keypress (e) ->
 
     # Grab / or any key (slash will enter a slash without typing)
     unless $('#q').is(":focus")
@@ -13,11 +13,6 @@ $ ->
         return
       else
         $('#q').focus()
-      
-    # Grab Esc - not working, probably need to use keydown
-    if e.which == 27
-      alert "HIHI"
-      $.blur()
 
   #Textbox work ===============================
   # orig_text = $('.search_input').val()
@@ -53,7 +48,7 @@ $ ->
         $('#search-form').submit()
 
   #Retranslate ================================
-  $(document).on("click", '.retrans-btn', (e) -> 
+  $(document).on("click", '.retrans-btn', (e) ->
     e.preventDefault()
 
     #start pinwheel

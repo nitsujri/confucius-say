@@ -15,7 +15,7 @@
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server 'cantodictionary.com', user: 'root', roles: %w{web app}, my_property: :my_value
+server 'cantodictionary.com', user: 'deploy', roles: %w{web app db}
 
 
 # Custom SSH Options

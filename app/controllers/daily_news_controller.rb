@@ -21,7 +21,7 @@ class DailyNewsController < ApplicationController
         :description       => translate_chars(article.xpath('description')),
         :description_trans => translate(article.xpath('description')),
         :link              => article.xpath('link').text,
-        :pub_date          => DateTime.parse(article.xpath('pubDate').text),
+        # :pub_date          => DateTime.parse(article.xpath('pubDate').text),
       }
     end
   end

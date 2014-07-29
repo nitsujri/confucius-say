@@ -8,7 +8,7 @@ set :repo_url, 'git@github.com:nitsujri/confucius-say.git'
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
-# set :deploy_to, '/var/www/my_app'
+set :deploy_to, "/data/#{fetch(:rbenv_path)}"
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -30,7 +30,7 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 
 set :rbenv_type, :system
 set :rbenv_ruby, '2.1.2'
-set :rbenv_path, "/root/.rbenv"
+set :rbenv_path, "/usr/local/rbenv"
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :rbenv_roles, :all # default value
