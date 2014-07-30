@@ -24,8 +24,8 @@
   .alert.alert-danger
     %p
       %b
-        Oh Noes! 
-      Stupid 
+        Oh Noes!
+      Stupid
       =surround "", "..." do
         =link_to Translator.name, Translator.url
       sigh sorry guys! Try again later.
@@ -48,7 +48,7 @@
         %th
           English Definition
         %th
-          Example
+          Clip
     %tbody
       -i=0
       -if @db_results.present?
@@ -63,7 +63,7 @@
                 =r.chars_simp
             %td
               =build_jyutping(r)
-              
+
             %td
               -if r.english_2.present?
                 1.
@@ -73,8 +73,9 @@
                 2.
                 =r.english_2
             %td
-              %a{:href => "http://dl.aloonak68.com/Download/Music/Mehran/1392/01/1-15/01/Robin%20Thicke%20Feat.%20T.I.%20and%20Pharrell%20-%20Blurred%20Lines%20(Itunes)%20[128].mp3", :title => "Play Me!", :class => "sm2_button"}
-                Play
+              -if r.more_info.try(:sound_url).present?
+                %a.sm2_button{:href => "http://bigspace.celerity.co.uk/cantonese" + r.more_info.try(:sound_url)}
+
           -i=1
       -else
         %tr
