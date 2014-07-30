@@ -25,9 +25,14 @@ class OneOffs
 
     def build_word(data)
 
-      orig_word = Word.where(
-        chars_trad: data["char"]
-      ).first_or_create
+      begin
+        orig_word = Word.where(
+          chars_trad: data["char"]
+        ).first_or_create
+      rescue => e
+        ap e.message
+        return
+      end
 
       orig_word.update_attributes!({
           jyutping: data["jyutping"],
@@ -97,11 +102,16 @@ class OneOffs
         # chars_simp: chars_simp.join,
       ).first_or_create!
 
-      word.update_attributes({
-        :jyutping   => compound_data[:jyutping],
-        :pinyin     => pinyin.join(" "),
-        :english    => compound_data[:english]
-      })
+      begin
+        word.update_attributes!({
+          :jyutping   => compound_data[:jyutping],
+          :pinyin     => pinyin.join(" "),
+          :english    => compound_data[:english]
+        })
+      rescue => e
+        ap e.message
+        return
+      end
 
       WordData.where(
         :word_id => word.id,
@@ -117,6 +127,7 @@ class OneOffs
       #find individual chars, create link from compound => subword
       compound_data[:chars_trad].each do |char_data|
         subword = Word.find_by(chars_trad: char_data[:char_trad])
+        next if subword.blank?
         word.subword_word_links.create(word_id: subword.id)
       end
     end
