@@ -56,7 +56,7 @@
   %dd
     %ol
       %li
-        =@word.english
+        =@word.english.html_safe
       -if @word.english_2.present?
         %li
           =@word.english_2
@@ -71,7 +71,7 @@
     %dt
       Individual Words
 
-    %dd  
+    %dd
       %table.table
         %thead
           %tr
@@ -94,7 +94,7 @@
     %dt
       Example Sentences
 
-    %dd  
+    %dd
       %table.table
         %thead
           %tr

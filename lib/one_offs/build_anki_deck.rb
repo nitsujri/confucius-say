@@ -2,8 +2,13 @@ class OneOffs
   class BuildAnkiDeck < Base
     require 'csv'
 
-    IMPORT_FILE = "cantonese_l1.txt"
-    EXPORT_FILE = "anki_deck_canto_l1.csv"
+    #reload!; OneOffs::BuildAnkiDeck.go
+
+    CURRENT_TAG = "L2" # The data set we want to work on
+
+    IMPORT_FILE = "cantonese_all_tags.txt"
+    # EXPORT_FILE = "anki_deck_canto_l1.csv"
+    EXPORT_FILE = "anki_deck_canto_l2.csv"
 
     def read_file
       IO.readlines(Rails.root + "tmp" + IMPORT_FILE)
@@ -13,10 +18,20 @@ class OneOffs
       app_controller = ApplicationController.new
 
       lines.map do |line|
+
+        next if line.blank?
+
         # Split
-        char = line.split(/\s/).first
+        line_arr = line.split(/\s/)
+        char = line_arr.first
+        tag = line_arr.last
+
+        next if CURRENT_TAG != tag
+
         # Lookup Char
         word = Word.includes(:compounds).where("chars_trad = ? OR chars_simp = ?", char, char).first
+
+        next if word.blank?
 
         chars_simp = word.chars_trad != word.chars_simp ? "(#{word.chars_simp})" : nil
 
@@ -38,6 +53,7 @@ class OneOffs
           example_jyutping = nil
           example_url = nil
         end
+        ap ">>>> #{word.id}. #{word.chars_trad} - #{word.jyutping}"
         sound = word.jyutping.split(/[\s\/]/).map{ |jyutping|
           "[sound:#{jyutping}.wav]"
         }.join("")
@@ -64,12 +80,12 @@ class OneOffs
     def write_file(data)
       CSV.open(Rails.root + "tmp" + EXPORT_FILE, "w") do |csv|
         data.each do |line|
-          csv << line
+          csv << line unless line.blank?
         end
       end
     end
 
-    #OneOffs::BuildAnkiDeck.go
+    #reload!; OneOffs::BuildAnkiDeck.go
     def self.go
       ActiveRecord::Base.logger.level = 1
 
