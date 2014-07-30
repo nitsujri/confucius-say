@@ -106,7 +106,15 @@ class OneOffs
         pinyin   = compound.at_css(".summary_pinyin").try(:text)
 
         #english
-        english = compound.xpath("//body/child::text()").text.split(/\=/)[1].strip if compound.xpath("//body/child::text()").text.split(/\=/)[1].present?
+        # english = compound.xpath("//body/child::text()").text.split(/\=/)[1].strip if compound.xpath("//body/child::text()").text.split(/\=/)[1].present?
+        text = noko.at_css(".wordmeaning").text.strip.gsub(/(\[www.cantonese.sheik.co.uk\]|\sSee this link|Additional PoS|Stroke count|Default PoS).*/im, "")
+
+        text_arr = text.split(/(\r\n|\n)/).map{ |x| x.strip }.reject!(&:blank?)
+        english = unless text_arr.blank?
+          text_arr.join("<br>")
+        else
+          text
+        end
 
         #grab if cantonese or mandarin only based on css
         usage = if compound.at_css(".cantonesebox").present?
