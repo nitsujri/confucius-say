@@ -15,12 +15,15 @@ ConfuciusSay::Application.routes.draw do
 
   get 'words/retranslate' => 'words#retranslate', :as => 'retranslate'
 
+  get 'translation' => 'translation#index', :as => 'translation'
+  post 'translation/translate' => 'translation#translate', :as => 'translate'
+  
   #Other pages
   get 'learn/tones' => 'learn#tones', :as => "learn_tones"
   get 'legal' => 'legal#index', :as => "legal"
   get 'daily-news' => 'daily_news#index', :as => "daily_news"
   get 'examples' => "examples#index", :as => "examples"
-  
+
   get ':translated/:id' => 'words#show', :constraints => { :translated => /.*/ }
 
   # Example of named route that can be invoked with purchase_url(id: product.id)

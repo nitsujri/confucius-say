@@ -1,0 +1,16 @@
+-@output.each do |line|
+  %table.translated-line
+    %tr
+      -line[:lookup].each do |word|
+        -if word.present?
+          %td.word
+            -if word[:chars_trad]
+              .chars-trad
+                =word[:chars_trad]
+            -if word[:jyutping]
+              .jyutping
+                =word[:jyutping]
+    %tr
+      %td{ colspan: line[:lookup].count }
+        .line-translation
+          =line[:translation]

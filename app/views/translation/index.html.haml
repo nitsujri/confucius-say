@@ -1,0 +1,12 @@
+#translate-box-container
+  .row
+    =form_tag translate_path, :method => 'post', :id => "translate-block" do
+      .col-lg-12
+        .input-group
+          = text_area_tag :q, params[:q] || "Search/Translate Text", :class => "translate-input form-control"
+          %span.input-group-btn
+            %button#search-submit.btn.btn-default{type: "submit"}
+              .glyphicon.glyphicon-search
+
+#translated-container
+  
