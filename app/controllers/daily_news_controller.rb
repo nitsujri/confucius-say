@@ -14,14 +14,13 @@ class DailyNewsController < ApplicationController
 
     parsed_news.xpath('//item').drop(parsed_news.xpath('//item').count - 5).map do |article|
       {
-        :title_orig        => article.xpath('title').text,
-        :title             => translate_chars(article.xpath('title')),
-        :title_trans       => translate(article.xpath('title')),
-        :description_org   => article.xpath('description').text,
-        :description       => translate_chars(article.xpath('description')),
-        :description_trans => translate(article.xpath('description')),
-        :link              => article.xpath('link').text,
-        # :pub_date          => DateTime.parse(article.xpath('pubDate').text),
+        title_orig:        article.xpath('title').text,
+        title:             translate_chars(article.xpath('title')),
+        title_trans:       translate(article.xpath('title')),
+        description_org:   article.xpath('description').text,
+        description:       translate_chars(article.xpath('description')),
+        description_trans: translate(article.xpath('description')),
+        link:              article.xpath('link').text,
       }
     end
   end

@@ -1,10 +1,10 @@
 !!!
 %html{lang: "en"}
   
-  =render :partial => "layouts/head"
+  =render "layouts/head"
 
   %body
-    =render :partial => "shared/navbar"
+    =render "shared/navbar"
     .container
 
       .row
@@ -16,11 +16,11 @@
               =alert
       .row
         .span12
-          = render :partial => 'search/search_box'
+          = render 'search/search_box'
       .row
         .span12
           #main-content
             = yield
       / /row
-      =render :partial => "layouts/footer"
+      =render "layouts/footer"
     / /container

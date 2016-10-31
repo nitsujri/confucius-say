@@ -1,6 +1,6 @@
 class Word < ActiveRecord::Base
 
-  validates :chars_trad, :presence => true, :uniqueness => true
+  validates :chars_trad, presence: true, uniqueness: true
 
   has_one :extra_data, as: :storable
   has_one :more_info, class_name: "WordData"

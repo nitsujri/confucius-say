@@ -2,7 +2,6 @@ class TranslationController < ApplicationController
   layout "application_no_s"
 
   def index
-
   end
 
   def translate
@@ -23,11 +22,5 @@ class TranslationController < ApplicationController
         translation: Translator.to_en(line)
       }
     end
-
-    # if request.xhr?
-    #   render :layout => false
-    # else
-    #   render text: "how did you get here?"
-    # end
   end
 end
