@@ -1,24 +1,24 @@
 class Word < ActiveRecord::Base
 
-  validates :chars_trad, :presence => true, :uniqueness => true
+  validates :chars_trad, presence: true, uniqueness: true
 
-  has_one :extra_data, :as => :storable
-  has_one :more_info, :class_name => "WordData"
+  has_one :extra_data, as: :storable
+  has_one :more_info, class_name: "WordData"
 
   has_many :compound_word_links
-  has_many :compounds, :through => :compound_word_links, :source => :compound
+  has_many :compounds, through: :compound_word_links, source: :compound
 
   #If you want this speical one way stuff, you gotta make a reference to the other foreign key
-  has_many :subword_word_links, :class_name => "CompoundWordLink", :foreign_key => "compound_id"
-  has_many :subwords, :through => :subword_word_links, :source => :word
+  has_many :subword_word_links, class_name: "CompoundWordLink", foreign_key: "compound_id"
+  has_many :subwords, through: :subword_word_links, source: :word
 
   scope :sound_ordered_info, -> { includes(:more_info).order("word_data.sound_url").reverse_order }
 
   has_attached_file :stroke_image,
-    :storage        => :s3,
-    :bucket         => "confucius-say",
-    :s3_credentials => YAML.load_file(File.join(Rails.root, "config", "aws-s3.yml")).with_indifferent_access[Rails.env],
-    :s3_hostname    => "Oregon"
+    storage:        :s3,
+    bucket:         "confucius-say",
+    s3_credentials: YAML.load_file(File.join(Rails.root, "config", "aws-s3.yml")).with_indifferent_access[Rails.env],
+    s3_hostname:    "Oregon"
 
   def simp_diff?
     self.chars_trad != self.chars_simp

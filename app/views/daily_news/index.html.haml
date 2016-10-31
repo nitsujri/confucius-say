@@ -27,7 +27,7 @@
                   %tr
                     %td.text-left
                       .bubble-char
-                        =link_to c.chars_trad, word_path(c), :target => "_blank"
+                        =link_to c.chars_trad, word_path(c), target: "_blank"
                         =surround "(", ")" do
                           =c.chars_simp
                   %tr
@@ -35,9 +35,9 @@
                       %ol
                         -if c.english_2.present?
                           %li
-                            =truncate c.english_2, :legnth => 25
+                            =truncate c.english_2, length: 25
                         %li
-                          =truncate c.english, :legnth => 25
+                          =truncate c.english, length: 25
         %p
           =link_to "Original Article", article[:link]
         %p
@@ -61,8 +61,8 @@
                       %ol
                         -if c.english_2.present?
                           %li
-                            =truncate c.english_2, :legnth => 25
+                            =truncate c.english_2, length: 25
                         %li
-                          =truncate c.english, :legnth => 25
+                          =truncate c.english, length: 25
         %p
           =article[:description_trans]
