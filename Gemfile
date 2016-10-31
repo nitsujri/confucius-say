@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0'
+gem 'rails'
 
 gem 'mysql2'
 
-gem 'devise', github: 'plataformatec/devise', branch: 'rails4'
+gem 'devise'
 
 #For stroke images
 gem 'paperclip'
